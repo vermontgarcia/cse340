@@ -58,6 +58,7 @@ document.getElementById("upgrades-container").append(
     figure.append(img, figcaption);
     card.append(figure);
     img.setAttribute("src", upgrade.imageUrl);
+    img.setAttribute("alt", upgrade.imageCaption);
     img.setAttribute("width", 200);
     img.setAttribute("height", 200);
     figcaption.innerHTML = upgrade.imageCaption;
