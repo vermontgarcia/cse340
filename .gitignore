@@ -17,3 +17,6 @@ node_modules
 
 # Readme
 README.md
+
+# Ignore .vscode
+.vscode
