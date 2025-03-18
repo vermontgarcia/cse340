@@ -5,18 +5,19 @@
 /* ***********************
  * Require Statements
  *************************/
-require("dotenv").config();
-const express = require("express");
-const expressLayouts = require("express-ejs-layouts");
+require('dotenv').config();
+const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const app = express();
-const static = require("./routes/static");
+const static = require('./routes/static');
+const { buildHome } = require('./controllers/baseController');
 
 /* ***********************
  * View Engine and Templates
  *************************/
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 app.use(expressLayouts);
-app.set("layout", "./layouts/layout"); // not at views root
+app.set('layout', './layouts/layout'); // not at views root
 
 /* ***********************
  * Routes
@@ -24,7 +25,7 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(static);
 
 // Index route
-app.get("/", (req, res) => res.render("index", { title: "Home" }));
+app.get('/', buildHome);
 
 /* ***********************
  * Local Server Information
