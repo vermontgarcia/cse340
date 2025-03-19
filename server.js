@@ -11,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const static = require('./routes/static');
 const { buildHome } = require('./controllers/baseController');
+const inventoryRouter = require('./routes/inventoryRoute');
 
 /* ***********************
  * View Engine and Templates
@@ -26,6 +27,8 @@ app.use(static);
 
 // Index route
 app.get('/', buildHome);
+// Inventory Routes
+app.use('/inv', inventoryRouter);
 
 /* ***********************
  * Local Server Information
