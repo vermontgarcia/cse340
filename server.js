@@ -12,7 +12,7 @@ const app = express();
 const static = require('./routes/static');
 const { buildHome } = require('./controllers/baseController');
 const inventoryRouter = require('./routes/inventoryRoute');
-const { getNav } = require('./utilities');
+const { getNav, handleErrors } = require('./utilities');
 
 /* ***********************
  * View Engine and Templates
@@ -27,7 +27,7 @@ app.set('layout', './layouts/layout'); // not at views root
 app.use(static);
 
 // Index route
-app.get('/', buildHome);
+app.get('/', handleErrors(buildHome));
 // Inventory Routes
 app.use('/inv', inventoryRouter);
 
@@ -44,11 +44,17 @@ app.use(async (req, res, next) => {
  * Must be keep after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  nav = await getNav();
+  const nav = await getNav();
+  let message = '';
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  if (err.status === 404) {
+    message = err.message;
+  } else {
+    message = 'Oh no! There was a crash. Maybe try a different route?';
+  }
   res.render('errors/error', {
     title: err.status || 'Server Error',
-    message: err.message,
+    message,
     nav,
   });
 });
