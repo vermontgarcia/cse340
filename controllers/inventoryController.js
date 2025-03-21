@@ -1,4 +1,3 @@
-const { getInventoryByClassificationId } = require('../models/inventory-model');
 const { buildClassificationGrid, getNav } = require('../utilities');
 
 const buildByClassificationId = async (req, res, next) => {

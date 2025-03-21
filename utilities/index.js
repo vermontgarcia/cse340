@@ -38,8 +38,8 @@ const noVehiclesTemplate = `<p class="notice">Sorry, no matching vehicles could 
 
 const buildClassificationGrid = async (clasId) => {
   const inventory = await getInventoryByClassificationId(clasId);
-  const title = `${inventory[0].clas_name} Vehicles`;
   if (inventory.length > 0) {
+    const title = `${inventory[0].clas_name} Vehicles`;
     return {
       grid: gridTemplate(inventory),
       title,
