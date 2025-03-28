@@ -23,7 +23,7 @@ const gridItemTemplate = (vehicle) =>
     vehicle.inv_thumbnail
   }" alt="Image of ${vehicle.inv_make} ${
     vehicle.inv_model
-  } on CSE Motors"></a><div class="name-price"><hr><h2><a href="../../inv/detail/${
+  } on CSE Motors"></a><hr><div class="name-price"><h2><a href="../../inv/detail/${
     vehicle.inv_id
   }" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">${
     vehicle.inv_make
