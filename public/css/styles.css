@@ -82,6 +82,9 @@ nav ul li a:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
   margin: 0 auto;
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #hero-card img {
