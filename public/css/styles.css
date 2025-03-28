@@ -21,6 +21,10 @@ a {
   color: black;
 }
 
+h1 {
+  padding: 0 1rem;
+}
+
 .site-name {
   font-size: 2rem;
 }
