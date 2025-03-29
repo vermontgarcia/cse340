@@ -10,9 +10,11 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const static = require('./routes/static');
-const { buildHome } = require('./controllers/baseController');
 const inventoryRouter = require('./routes/inventoryRoute');
+const serverErrorRouter = require('./routes/serverErrorRouter');
+const { buildHome } = require('./controllers/baseController');
 const { getNav, handleErrors } = require('./utilities');
+const { gridErrorTemplate } = require('./templates');
 
 /* ***********************
  * View Engine and Templates
@@ -30,13 +32,14 @@ app.use(static);
 app.get('/', handleErrors(buildHome));
 // Inventory Routes
 app.use('/inv', inventoryRouter);
+app.use('/server-error', serverErrorRouter);
 
 /* ***********************
  * Route Not Found
  * Must be keep after all other routes
  *************************/
 app.use(async (req, res, next) => {
-  next({ status: 404, message: "Sorry, it seems that page doesn't exists!" });
+  next({ status: 404, message: 'Not Found' });
 });
 
 /* ***********************
@@ -45,17 +48,29 @@ app.use(async (req, res, next) => {
  *************************/
 app.use(async (err, req, res, next) => {
   const nav = await getNav();
+  const title = `${err.message}` || 'Server Error';
   let message = '';
+  let grid;
+  const data = {
+    title,
+    statusCode: err.status,
+  };
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   if (err.status === 404) {
-    message = err.message;
+    data.message = `Sorry, it seems that page doesn't exists!`;
+    data.imageUrl = '/images/site/404-empty.png';
+    data.imageName = 'Image of an empty street';
   } else {
-    message = 'Oh no! There was a crash. Maybe try a different route?';
+    data.message = `Oh no! There was a crash. Maybe try a different route?`;
+    data.imageUrl = '/images/site/500-crash.png';
+    data.imageName = 'Image of an crash';
   }
+  grid = gridErrorTemplate(data);
+
   res.render('errors/error', {
-    title: err.status || 'Server Error',
-    message,
+    title,
     nav,
+    grid,
   });
 });
 

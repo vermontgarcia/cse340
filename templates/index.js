@@ -105,9 +105,30 @@ const noVehiclesTemplate = `
   </p>
 `;
 
+// Error Templates
+
+const gridErrorTemplate = ({
+  title,
+  statusCode,
+  message,
+  imageUrl,
+  imageName,
+}) => `
+  <div class="error-page">
+    <h1>${title}</h1>
+    <div>
+      <p class="code">${statusCode}</p>
+      <p>${message}</p>
+      <img src="${imageUrl}" alt="${imageName}" width="100", height="100">
+    </div>
+  </div>
+`;
+
 module.exports = {
   navItemTemplate,
   navTemplate,
   gridTemplate,
   gridInventoryDetailsTemplate,
+  noVehiclesTemplate,
+  gridErrorTemplate,
 };

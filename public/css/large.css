@@ -50,4 +50,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
+
+  .error-page img {
+    margin-top: -5rem;
+  }
 }
