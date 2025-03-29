@@ -43,7 +43,11 @@
   }
 
   #inv-display {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .inventory-details-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

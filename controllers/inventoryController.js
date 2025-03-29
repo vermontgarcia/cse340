@@ -1,8 +1,12 @@
-const { buildClassificationGrid, getNav } = require('../utilities');
+const {
+  getNav,
+  buildClassificationGrid,
+  buildInventoryGrid,
+} = require('../utilities');
 
 const buildByClassificationId = async (req, res, next) => {
-  const clas_id = req.params.clasId;
-  const { grid, title } = await buildClassificationGrid(clas_id);
+  const clasId = req.params.clasId;
+  const { grid, title } = await buildClassificationGrid(clasId);
   const nav = await getNav();
 
   res.render('./inventory/classification', {
@@ -12,6 +16,19 @@ const buildByClassificationId = async (req, res, next) => {
   });
 };
 
+const buildByInventoryId = async (req, res, next) => {
+  const invId = req.params.invId;
+  const { grid, title } = await buildInventoryGrid(invId);
+  const nav = await getNav();
+
+  res.render('./inventory/inventory', {
+    title,
+    grid,
+    nav,
+  });
+};
+
 module.exports = {
   buildByClassificationId,
+  buildByInventoryId,
 };

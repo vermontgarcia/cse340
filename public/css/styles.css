@@ -25,6 +25,10 @@ h1 {
   padding: 0 1rem;
 }
 
+p {
+  display: inline;
+}
+
 .site-name {
   font-size: 2rem;
 }
@@ -146,6 +150,34 @@ nav ul li a:hover {
 
 #inv-display li:hover {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Inventory Details */
+
+.inventory-details-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.inventory-details-wrapper li {
+  list-style: none;
+  padding: 1rem;
+}
+
+.inventory-details-wrapper li:nth-child(odd) {
+  background-color: #eeeeee;
+}
+
+.inventory-details-wrapper > div,
+.inventory-details-wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.inventory-details-wrapper ul {
+  margin-top: 1rem;
 }
 
 /* Reviews */
