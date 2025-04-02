@@ -186,7 +186,12 @@ const signupGridTemplate = () => `
           id="password"
           required
           autocomplete
+          title="Password must be at least 12 characters long and include at least one uppercase letter, one number, and one special character."
         />
+        <span>
+          Passwords must be at least 12 characters and contain at least 1 number,
+          1 capital letter and 1 special character
+        </span>
       </label>
     </fieldset>
     <fieldset class="submit-btn-container">
