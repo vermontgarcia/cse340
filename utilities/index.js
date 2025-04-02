@@ -7,6 +7,8 @@ const {
   gridInventoryDetailsTemplate,
   gridTemplate,
   navTemplate,
+  loginGridTemplate,
+  signupGridTemplate,
 } = require('../templates');
 
 const getNav = async (req, res, next) => {
@@ -38,6 +40,22 @@ const buildInventoryGrid = async (invId) => {
   };
 };
 
+const buildLoginGrid = () => {
+  const title = `Login`;
+  return {
+    grid: loginGridTemplate(),
+    title,
+  };
+};
+
+const buildSignupGrid = () => {
+  const title = `Signup`;
+  return {
+    grid: signupGridTemplate(),
+    title,
+  };
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
@@ -51,4 +69,6 @@ module.exports = {
   buildClassificationGrid,
   buildInventoryGrid,
   handleErrors,
+  buildLoginGrid,
+  buildSignupGrid,
 };

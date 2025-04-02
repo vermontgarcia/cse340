@@ -7,6 +7,40 @@
   box-sizing: border-box;
 }
 
+:root {
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  /* colors */
+  --primary-color: #f0a868;
+  --secondary-color: #525b0f;
+  --tertiary-color: #8a470c;
+  --light-grey: #d0d0d0;
+  --dark-grey: #303030;
+  --text-black: #000000;
+
+  /* sizes */
+  --font-base: 18px;
+  --small-font: 0.8em;
+  --large-font: 1.2em;
+
+  /* Variables Declaration */
+  --text-color: #000000;
+  /* Primary Colors */
+  --deep-sea-blue: #03587B;
+  --fountain-blue: #5BB4C3;
+  --mercury: #E2E8EB;
+  --white: #FFFFFF;
+  /* Secondary Colors */
+  --aqua-green: #6FCF97;
+  --sky-blue: #56CCF2;
+  --sunlight-yellow: #F2C94C;
+  --soft-grey: #E0E0E0;
+  /* Reviews */
+  --button: #c55a03;
+  /* Form */
+  --required-asterisc: #990000;
+}
+
 nav ul,
 #hero-features {
   list-style: none;
@@ -18,7 +52,7 @@ section {
 
 a {
   text-decoration: none;
-  color: black;
+  color: var(--deep-sea-blue);
 }
 
 h1 {
@@ -251,6 +285,90 @@ nav ul li a:hover {
 
 .error-page p {
   font-size: 1.5rem;
+}
+
+/* Login and Registration Forms */
+
+.form {
+  padding: 1rem;
+  max-width: 550px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.form fieldset {
+  border: none;
+  padding-top: 1rem;
+}
+
+.form .submit-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form label,
+.form div {
+  display: block;
+  color: var(--deep-sea-blue);
+  font-size: 0.9rem;
+  color: var(--form-labels);
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+.form label:first-child {
+  padding-top: 0;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+  background-color: var(--mercury);
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.form input[type="submit"] {
+  border: none;
+  background-color: var(--dark-grey);
+  border-radius: 5px;
+  padding: 0.8rem;
+  box-shadow: 1px 1px 4px var(--dark-grey);
+  color: var(--mercury);
+  font-weight: 600;
+  cursor: pointer;
+  width: 10rem;
+}
+
+.form input:required {
+  border-right: solid 4px var(--required-asterisc);
+}
+
+.form input:required:valid {
+  border-right: solid 4px green;
+}
+
+.form .required {
+  color: var(--required-asterisc);
+  margin-left: 5px;
+}
+
+.form div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Messages */
+#messages .notice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Footer */

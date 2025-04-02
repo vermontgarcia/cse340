@@ -124,6 +124,80 @@ const gridErrorTemplate = ({
   </div>
 `;
 
+const loginGridTemplate = () => `
+  <form class="form" action="">
+    <fieldset>
+      <label
+        >Email<span class="required">*</span>
+        <input type="email" name="acc_email" id="email" required autocomplete />
+      </label>
+      <label
+        >Password<span class="required">*</span>
+        <input
+          type="password"
+          name="acc_password"
+          id="password"
+          required
+          autocomplete
+        />
+      </label>
+    </fieldset>
+    <fieldset class="submit-btn-container">
+      <input type="submit" role="button" value="Login" />
+    </fieldset>
+    <div>
+      <p>No account? <a href="/account/signup">Sign Up</a></p>
+    </div>
+  </form>
+`;
+
+const signupGridTemplate = () => `
+  <form class="form" action="/account/signup" method="post">
+    <fieldset>
+      <label
+        >First Name<span class="required">*</span>
+        <input
+          type="text"
+          name="acc_firstname"
+          id="firstname"
+          required
+          autocomplete
+        />
+      </label>
+      <label
+        >Last Name<span class="required">*</span>
+        <input
+          type="text"
+          name="acc_lastname"
+          id="lastname"
+          required
+          autocomplete
+        />
+      </label>
+      <label
+        >Email<span class="required">*</span>
+        <input type="email" name="acc_email" id="email" required autocomplete />
+      </label>
+      <label
+        >Password<span class="required">*</span>
+        <input
+          type="password"
+          name="acc_password"
+          id="password"
+          required
+          autocomplete
+        />
+      </label>
+    </fieldset>
+    <fieldset class="submit-btn-container">
+      <input type="submit" role="button" value="Signup" />
+    </fieldset>
+    <div>
+      <p>Have account? <a href="/account/login">Login</a></p>
+    </div>
+  </form>
+`;
+
 module.exports = {
   navItemTemplate,
   navTemplate,
@@ -131,4 +205,6 @@ module.exports = {
   gridInventoryDetailsTemplate,
   noVehiclesTemplate,
   gridErrorTemplate,
+  loginGridTemplate,
+  signupGridTemplate,
 };
