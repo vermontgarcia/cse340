@@ -13,6 +13,7 @@ const buildByClassificationId = async (req, res, next) => {
     title,
     nav,
     grid,
+    errors: null,
   });
 };
 
@@ -25,6 +26,7 @@ const buildByInventoryId = async (req, res, next) => {
     title,
     grid,
     nav,
+    errors: null,
   });
 };
 

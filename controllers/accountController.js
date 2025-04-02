@@ -8,6 +8,7 @@ const buildLogin = async (req, res, next) => {
     title,
     nav,
     grid,
+    errors: null,
   });
 };
 
@@ -18,6 +19,7 @@ const buildSignup = async (req, res, next) => {
     title,
     nav,
     grid,
+    errors: null,
   });
 };
 

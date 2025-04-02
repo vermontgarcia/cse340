@@ -103,6 +103,7 @@ app.use(async (err, req, res, next) => {
     title,
     nav,
     grid,
+    errors: null,
   });
 });
 

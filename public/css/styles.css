@@ -364,9 +364,9 @@ nav ul li a:hover {
 }
 
 /* Messages */
-#messages .notice {
+.notice {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
