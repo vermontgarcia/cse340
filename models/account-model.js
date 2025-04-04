@@ -23,6 +23,22 @@ const createUser = async (
   }
 };
 
+/* *****************************
+ * Return account data using email address
+ * ***************************** */
+const getAccountByEmail = async (acc_email) => {
+  try {
+    const result = await pool.query(
+      'SELECT acc_id, acc_firstname, acc_lastname, acc_email, acc_type, acc_password FROM account WHERE acc_email = $1',
+      [acc_email]
+    );
+    return result.rows[0];
+  } catch (error) {
+    return new Error('No matching email found');
+  }
+};
+
 module.exports = {
   createUser,
+  getAccountByEmail,
 };
