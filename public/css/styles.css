@@ -363,6 +363,19 @@ nav ul li a:hover {
   justify-content: center;
 }
 
+#password-field {
+  position: relative;
+}
+
+#password-field img {
+  position: absolute;
+  top: 2.125rem;
+  right: 1rem;
+  width: 2rem;
+  height: auto;
+  cursor: pointer;
+}
+
 /* Inventory Management */
 .inventory-management {
   display: flex;
