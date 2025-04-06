@@ -2,6 +2,7 @@ const {
   getNav,
   buildClassificationGrid,
   buildInventoryGrid,
+  buildManagementGrid,
 } = require('../utilities');
 
 const buildByClassificationId = async (req, res, next) => {
@@ -30,7 +31,21 @@ const buildByInventoryId = async (req, res, next) => {
   });
 };
 
+const buildManagement = async (req, res, next) => {
+  const invId = req.params.invId;
+  const { grid, title } = await buildManagementGrid(invId);
+  const nav = await getNav();
+
+  res.render('./inventory/management', {
+    title,
+    grid,
+    nav,
+    errors: null,
+  });
+};
+
 module.exports = {
   buildByClassificationId,
   buildByInventoryId,
+  buildManagement,
 };

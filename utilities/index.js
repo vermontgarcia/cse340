@@ -9,6 +9,7 @@ const {
   navTemplate,
   loginGridTemplate,
   signupGridTemplate,
+  gridManagementTemplate,
 } = require('../templates');
 
 const getNav = async (req, res, next) => {
@@ -37,6 +38,13 @@ const buildInventoryGrid = async (invId) => {
   return {
     grid: gridInventoryDetailsTemplate(inventoryDetail),
     title: `${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
+  };
+};
+
+const buildManagementGrid = async () => {
+  return {
+    grid: gridManagementTemplate(),
+    title: `Vehicle Management`,
   };
 };
 
@@ -71,4 +79,5 @@ module.exports = {
   handleErrors,
   buildLoginGrid,
   buildSignupGrid,
+  buildManagementGrid,
 };

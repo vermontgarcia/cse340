@@ -363,6 +363,13 @@ nav ul li a:hover {
   justify-content: center;
 }
 
+/* Inventory Management */
+.inventory-management {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
 /* Messages */
 .notice {
   display: flex;

@@ -100,9 +100,9 @@ const gridInventoryDetailsTemplate = ({
 `;
 
 const gridManagementTemplate = () => `
-<div>
-  <a href="/inv/management/classification">Add Classification</a>
-  <a href="/inv/management/inventory">Add Inventory</a>
+<div class="inventory-management">
+  <a href="/inv/classification">Add New Classification</a>
+  <a href="/inv/inventory">Add New Vehicle</a>
 </div>
 `;
 
