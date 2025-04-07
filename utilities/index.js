@@ -2,6 +2,7 @@ const {
   getClassifications,
   getInventoryByClassificationId,
   getDetailsByInventoryId,
+  getClassificationById,
 } = require('../models/inventory-model');
 const {
   gridInventoryDetailsTemplate,
@@ -9,6 +10,7 @@ const {
   navTemplate,
   loginGridTemplate,
   gridManagementTemplate,
+  noVehiclesTemplate,
 } = require('../templates');
 
 const getNav = async (req, res, next) => {
@@ -25,9 +27,10 @@ const buildClassificationGrid = async (clasId) => {
       title,
     };
   } else {
+    const clasName = await getClassificationById(clasId);
     return {
       grid: noVehiclesTemplate,
-      title,
+      title: `${clasName} Vehicles`,
     };
   }
 };

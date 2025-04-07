@@ -4,6 +4,18 @@ const getClassifications = async () => {
   return await pool.query('SELECT * FROM classification ORDER BY clas_name');
 };
 
+const getClassificationById = async (clasId) => {
+  try {
+    const { rows } = await pool.query(
+      'SELECT clas_name FROM classification WHERE clas_id=$1',
+      [clasId]
+    );
+    return rows[0].clas_name;
+  } catch (error) {
+    console.error('getClassificationById error', error);
+  }
+};
+
 const getInventoryByClassificationId = async (clasId) => {
   try {
     const { rows } = await pool.query(
@@ -43,4 +55,5 @@ module.exports = {
   getInventoryByClassificationId,
   getDetailsByInventoryId,
   createClassification,
+  getClassificationById,
 };

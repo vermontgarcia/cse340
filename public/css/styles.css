@@ -400,6 +400,11 @@ nav ul li a:hover {
   color: var(--required-asterisc);
 }
 
+p.notice {
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
 /* Footer */
 
 footer {
