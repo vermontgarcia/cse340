@@ -8,7 +8,6 @@ const {
   gridTemplate,
   navTemplate,
   loginGridTemplate,
-  signupGridTemplate,
   gridManagementTemplate,
 } = require('../templates');
 
@@ -48,6 +47,12 @@ const buildManagementGrid = async () => {
   };
 };
 
+const buildAddClassGrid = async () => {
+  return {
+    title: `Add Classification`,
+  };
+};
+
 const buildLoginGrid = () => {
   const title = `Login`;
   return {
@@ -59,7 +64,6 @@ const buildLoginGrid = () => {
 const buildSignupGrid = () => {
   const title = `Signup`;
   return {
-    grid: signupGridTemplate(),
     title,
   };
 };
@@ -80,4 +84,5 @@ module.exports = {
   buildLoginGrid,
   buildSignupGrid,
   buildManagementGrid,
+  buildAddClassGrid,
 };

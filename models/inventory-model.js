@@ -28,8 +28,19 @@ const getDetailsByInventoryId = async (invId) => {
   }
 };
 
+const createClassification = async (clas_name) => {
+  try {
+    const sql =
+      'INSERT INTO classification (clas_name) VALUES ($1) RETURNING *';
+    return await pool.query(sql, [clas_name]);
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getDetailsByInventoryId,
+  createClassification,
 };

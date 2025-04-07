@@ -106,6 +106,27 @@ const gridManagementTemplate = () => `
 </div>
 `;
 
+// Pattern with regular expression doesn't work with template
+// const gridAddClassTemplate = () => `
+// <form class="form" action="/inv/classification" method="post">
+//   <fieldset>
+//     <label
+//       >Classificaiton Name<span class="required">*</span>
+//       <input
+//         type="text"
+//         name="clas_name"
+//         id="clasName"
+//         required
+//         pattern="^\S+\S{1,}"
+//       />
+//     </label>
+//   </fieldset>
+//   <fieldset class="submit-btn-container">
+//     <input type="submit" role="button" value="Add Classification" />
+//   </fieldset>
+// </form>
+// `;
+
 const gridInventoryDetailsDeleteTemplate = ({
   inv_id: id,
   inv_year: year,
@@ -210,56 +231,57 @@ const loginGridTemplate = () => `
   </form>
 `;
 
-const signupGridTemplate = () => `
-  <form class="form" action="/account/signup" method="post">
-    <fieldset>
-      <label
-        >First Name<span class="required">*</span>
-        <input
-          type="text"
-          name="acc_firstname"
-          id="firstname"
-          required
-          autocomplete
-        />
-      </label>
-      <label
-        >Last Name<span class="required">*</span>
-        <input
-          type="text"
-          name="acc_lastname"
-          id="lastname"
-          required
-          autocomplete
-        />
-      </label>
-      <label
-        >Email<span class="required">*</span>
-        <input type="email" name="acc_email" id="email" required autocomplete />
-      </label>
-      <label
-      for="acc_password">Password<span class="required">*</span>
-      <span>
-        Passwords must be at least 12 characters and contain at least 1 number,
-        1 capital letter and 1 special character</span
-      >
-    </label>
-    <input
-      type="password"
-      name="acc_password"
-      id="acc_password"
-      required
-      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
-    />
-    </fieldset>
-    <fieldset class="submit-btn-container">
-      <input type="submit" role="button" value="Signup" />
-    </fieldset>
-    <div>
-      <p>Have account? <a href="/account/login">Login</a></p>
-    </div>
-  </form>
-`;
+// Pattern with regular expression doesn't work with template
+// const signupGridTemplate = () => `
+//   <form class="form" action="/account/signup" method="post">
+//     <fieldset>
+//       <label
+//         >First Name<span class="required">*</span>
+//         <input
+//           type="text"
+//           name="acc_firstname"
+//           id="firstname"
+//           required
+//           autocomplete
+//         />
+//       </label>
+//       <label
+//         >Last Name<span class="required">*</span>
+//         <input
+//           type="text"
+//           name="acc_lastname"
+//           id="lastname"
+//           required
+//           autocomplete
+//         />
+//       </label>
+//       <label
+//         >Email<span class="required">*</span>
+//         <input type="email" name="acc_email" id="email" required autocomplete />
+//       </label>
+//       <label
+//       for="acc_password">Password<span class="required">*</span>
+//       <span>
+//         Passwords must be at least 12 characters and contain at least 1 number,
+//         1 capital letter and 1 special character</span
+//       >
+//     </label>
+//     <input
+//       type="password"
+//       name="acc_password"
+//       id="acc_password"
+//       required
+//       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+//     />
+//     </fieldset>
+//     <fieldset class="submit-btn-container">
+//       <input type="submit" role="button" value="Signup" />
+//     </fieldset>
+//     <div>
+//       <p>Have account? <a href="/account/login">Login</a></p>
+//     </div>
+//   </form>
+// `;
 
 module.exports = {
   navItemTemplate,
@@ -269,7 +291,6 @@ module.exports = {
   noVehiclesTemplate,
   gridErrorTemplate,
   loginGridTemplate,
-  signupGridTemplate,
   gridManagementTemplate,
   gridInventoryDetailsDeleteTemplate,
 };

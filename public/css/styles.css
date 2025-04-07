@@ -39,6 +39,7 @@
   --button: #c55a03;
   /* Form */
   --required-asterisc: #990000;
+  --valid: #008000;
 }
 
 nav ul,
@@ -388,7 +389,15 @@ nav ul li a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  max-width: 550px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  color: var(--valid);
+}
+
+.notice.error {
+  color: var(--required-asterisc);
 }
 
 /* Footer */
