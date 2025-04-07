@@ -1,10 +1,14 @@
-const { createClassification } = require('../models/inventory-model');
+const {
+  createClassification,
+  createInventory,
+} = require('../models/inventory-model');
 const {
   getNav,
   buildClassificationGrid,
   buildInventoryGrid,
   buildManagementGrid,
   buildAddClassGrid,
+  buildAddInvGrid,
 } = require('../utilities');
 
 const buildByClassificationId = async (req, res, next) => {
@@ -34,9 +38,7 @@ const buildByInventoryId = async (req, res, next) => {
 };
 
 const buildManagement = async (req, res, next) => {
-  const { grid, title } = await buildManagementGrid();
-  const nav = await getNav();
-
+  const { grid, title, nav } = await buildManagementGrid();
   res.render('./inventory/management', {
     title,
     grid,
@@ -56,17 +58,27 @@ const buildAddClass = async (req, res, next) => {
   });
 };
 
+const buildAddInventory = async (req, res, next) => {
+  const { title, nav, clasOptions, formData } = await buildAddInvGrid();
+  res.render('./inventory/add-inventory', {
+    title,
+    nav,
+    clasOptions,
+    formData,
+    errors: null,
+  });
+};
+
 const addClassification = async (req, res) => {
   const { clas_name } = req.body;
   const result = await createClassification(clas_name);
   if (result) {
     req.flash('notice', `Classification "${clas_name}" added`);
-    const { grid, title } = await buildManagementGrid();
-    const nav = await getNav();
+    const { grid, title, nav } = await buildManagementGrid();
     res.render('./inventory/management', {
       title,
-      grid,
       nav,
+      grid,
       errors: null,
     });
   } else {
@@ -81,10 +93,31 @@ const addClassification = async (req, res) => {
   }
 };
 
+const addInventory = async (req, res) => {
+  const formData = req.body;
+  console.log(formData);
+  const result = await createInventory(formData);
+  if (result) {
+    req.flash(
+      'notice',
+      `Vehicle ${formData.inv_make} ${formData.inv_model} added to inventory`
+    );
+    const { title, nav, grid } = await buildManagementGrid();
+    res.render('./inventory/management', {
+      title,
+      nav,
+      grid,
+      errors: null,
+    });
+  }
+};
+
 module.exports = {
   buildByClassificationId,
   buildByInventoryId,
   buildManagement,
   buildAddClass,
   addClassification,
+  buildAddInventory,
+  addInventory,
 };

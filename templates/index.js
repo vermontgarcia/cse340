@@ -20,6 +20,14 @@ const navTemplate = (data) => `
   </ul>
 `;
 
+const clasOptionTemplate = ({ clas_id, clas_name }) => `
+  <option value=${clas_id}>${clas_name}</option>
+`;
+
+const clasOptionsTemplate = (data) => `
+  ${data.rows.map(clasOptionTemplate).join('')}
+`;
+
 // Grid Inventory by Cassification Templates
 
 const gridItemTemplate = (vehicle) => `
@@ -293,4 +301,5 @@ module.exports = {
   loginGridTemplate,
   gridManagementTemplate,
   gridInventoryDetailsDeleteTemplate,
+  clasOptionsTemplate,
 };

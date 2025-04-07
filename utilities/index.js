@@ -11,11 +11,17 @@ const {
   loginGridTemplate,
   gridManagementTemplate,
   noVehiclesTemplate,
+  clasOptionsTemplate,
 } = require('../templates');
 
 const getNav = async (req, res, next) => {
   const data = await getClassifications();
   return navTemplate(data);
+};
+
+const getClasOptions = async () => {
+  const data = await getClassifications();
+  return clasOptionsTemplate(data);
 };
 
 const buildClassificationGrid = async (clasId) => {
@@ -44,15 +50,31 @@ const buildInventoryGrid = async (invId) => {
 };
 
 const buildManagementGrid = async () => {
+  const nav = await getNav();
   return {
-    grid: gridManagementTemplate(),
     title: `Vehicle Management`,
+    nav,
+    grid: gridManagementTemplate(),
   };
 };
 
 const buildAddClassGrid = async () => {
+  const nav = await getNav();
   return {
     title: `Add Classification`,
+    nav,
+  };
+};
+
+const buildAddInvGrid = async () => {
+  const nav = await getNav();
+  const clasOptions = await getClasOptions();
+  formData = {};
+  return {
+    title: `Add Vehicle`,
+    nav,
+    clasOptions,
+    formData,
   };
 };
 
@@ -88,4 +110,5 @@ module.exports = {
   buildSignupGrid,
   buildManagementGrid,
   buildAddClassGrid,
+  buildAddInvGrid,
 };

@@ -50,10 +50,33 @@ const createClassification = async (clas_name) => {
   }
 };
 
+const createInventory = async (formData) => {
+  const arrayValues = [
+    formData.clas_id,
+    formData.inv_make,
+    formData.inv_model,
+    formData.inv_year,
+    formData.inv_description,
+    formData.inv_image,
+    formData.inv_thumbnail,
+    formData.inv_price,
+    formData.inv_miles,
+    formData.inv_color,
+  ];
+  try {
+    const sql =
+      'INSERT INTO inventory (clas_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+    return await pool.query(sql, arrayValues);
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getDetailsByInventoryId,
   createClassification,
   getClassificationById,
+  createInventory,
 };

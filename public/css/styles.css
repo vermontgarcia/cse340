@@ -324,6 +324,9 @@ nav ul li a:hover {
 
 .form input[type="text"],
 .form input[type="email"],
+.form input[type="number"],
+.form select,
+.form textarea,
 .form input[type="password"] {
   background-color: var(--mercury);
   display: block;
@@ -345,12 +348,16 @@ nav ul li a:hover {
   width: 10rem;
 }
 
+.form select:required,
+.form textarea:required,
 .form input:required {
   border-right: solid 4px var(--required-asterisc);
 }
 
+.form select:required:valid,
+.form textarea:required:valid,
 .form input:required:valid {
-  border-right: solid 4px green;
+  border-right: solid 4px var(--valid);
 }
 
 .form .required {
