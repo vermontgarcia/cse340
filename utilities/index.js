@@ -89,6 +89,8 @@ const buildDeleteInventoryGrid = async (invId) => {
   return {
     grid: gridInventoryDetailsTemplate(inventoryDetail),
     title: `Delete Confirmation - ${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
+    deleteMessage:
+      'Are you sure you want to delete this vehicle? Delete is permanent and cannot be undone!',
   };
 };
 

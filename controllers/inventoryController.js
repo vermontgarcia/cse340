@@ -65,11 +65,12 @@ const buildAddClass = async (req, res, next) => {
 
 const buildDeleteByInventoryId = async (req, res, next) => {
   const invId = req.params.invId;
-  const { grid, title } = await buildDeleteInventoryGrid(invId);
+  const { grid, title, deleteMessage } = await buildDeleteInventoryGrid(invId);
   const nav = await getNav();
 
   res.render('./inventory/delete-confirm', {
     title,
+    deleteMessage,
     grid,
     nav,
     invId,
