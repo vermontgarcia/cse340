@@ -12,7 +12,7 @@ const {
 const buildAccount = async (req, res, next) => {
   const nav = await getNav();
   const { grid, title } = buildAccountGrid();
-  res.render('account/', {
+  res.render('./account/', {
     title,
     nav,
     grid,
@@ -22,11 +22,10 @@ const buildAccount = async (req, res, next) => {
 
 const buildLogin = async (req, res, next) => {
   const nav = await getNav();
-  const { grid, title } = buildLoginGrid();
-  res.render('account/login', {
+  const { title } = buildLoginGrid();
+  res.render('./account/login', {
     title,
     nav,
-    grid,
     errors: null,
   });
 };
@@ -34,7 +33,7 @@ const buildLogin = async (req, res, next) => {
 const buildSignup = async (req, res, next) => {
   const nav = await getNav();
   const { grid, title } = buildSignupGrid();
-  res.render('account/signup', {
+  res.render('./account/signup', {
     title,
     nav,
     // grid,
@@ -46,11 +45,26 @@ const signupUser = async (req, res) => {
   let nav = await getNav();
   const { acc_firstname, acc_lastname, acc_email, acc_password } = req.body;
 
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hashSync(acc_password, 10);
+  } catch (error) {
+    req.flash(
+      'notice',
+      'Sorry, there was an error processing the registration.'
+    );
+    res.status(500).render('./account/register', {
+      title: 'Registration',
+      nav,
+      errors: null,
+    });
+  }
+
   const regResult = await createUser(
     acc_firstname,
     acc_lastname,
     acc_email,
-    acc_password
+    hashedPassword
   );
 
   if (regResult) {
@@ -63,14 +77,16 @@ const signupUser = async (req, res) => {
       title,
       nav,
       grid,
+      errors: null,
     });
   } else {
     req.flash('notice', 'Sorry, the registration failed.');
     const { grid, title } = buildSignupGrid();
-    res.status(501).render('account/signup', {
+    res.status(501).render('./account/signup', {
       title,
       nav,
       // grid,
+      errors: null,
     });
   }
 };
@@ -81,17 +97,16 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   let nav = await getNav();
   const { acc_email, acc_password } = req.body;
-  const { grid, title } = buildLoginGrid();
+  const { title } = buildLoginGrid();
   const accountData = await getAccountByEmail(acc_email);
   if (!accountData) {
     req.flash('notice', 'Please check your credentials and try again.');
 
-    res.status(400).render('account/login', {
+    res.status(400).render('./account/login', {
       title,
       nav,
       errors: null,
       acc_email,
-      grid,
     });
     return;
   }
@@ -118,12 +133,11 @@ const loginUser = async (req, res) => {
         'message notice',
         'Please check your credentials and try again.'
       );
-      res.status(400).render('account/login', {
+      res.status(400).render('./account/login', {
         title,
         nav,
         errors: null,
         acc_email,
-        grid,
       });
     }
   } catch (error) {

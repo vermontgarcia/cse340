@@ -38,7 +38,21 @@ const getAccountByEmail = async (acc_email) => {
   }
 };
 
+/* **********************
+ *   Check for existing email
+ * ********************* */
+const checkExistingEmail = async (acc_email) => {
+  try {
+    const sql = 'SELECT * FROM account WHERE acc_email = $1';
+    const email = await pool.query(sql, [acc_email]);
+    return email.rowCount;
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   createUser,
   getAccountByEmail,
+  checkExistingEmail,
 };

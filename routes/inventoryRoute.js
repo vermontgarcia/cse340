@@ -2,6 +2,7 @@ const { Router } = require('express');
 const {
   buildByClassificationId,
   buildByInventoryId,
+  buildDeleteByInventoryId,
   buildManagement,
   buildAddClass,
   addClassification,
@@ -35,5 +36,8 @@ inventoryRouter.post(
   checkAddInventoryData,
   handleErrors(addInventory)
 );
+
+inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);
+inventoryRouter.delete('/delete/:invId');
 
 module.exports = inventoryRouter;

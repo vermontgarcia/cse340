@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const { buildSignupGrid, getNav } = require('.');
+const { checkExistingEmail } = require('../models/account-model');
 
 /*  **********************************
  *  Registration Data Validation Rules
@@ -25,11 +26,17 @@ const signupRules = () => {
     // valid email is required and cannot already exist in the DB
     body('acc_email')
       .trim()
-      .escape()
-      .notEmpty()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
-      .withMessage('A valid email is required.'),
+      .withMessage('A valid email is required.')
+      .custom(async (acc_email) => {
+        const emailExist = await checkExistingEmail(acc_email);
+        if (emailExist) {
+          throw new Error(
+            'Email already exists. Please login or register with a different email.'
+          );
+        }
+      }),
 
     // password is required and must be strong password
     body('acc_password')
@@ -46,6 +53,9 @@ const signupRules = () => {
   ];
 };
 
+/*  **********************************
+ *  Login Data Validation Rules
+ * ********************************* */
 const loginRules = () => {
   return [
     // valid email is required and cannot already exist in the DB
@@ -55,27 +65,20 @@ const loginRules = () => {
       .notEmpty()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
-      .withMessage('A valid email is required.'),
+      .withMessage('Invalid credentials, please review and try again.'),
 
     // password is required and must be strong password
     body('acc_password')
       .trim()
       .notEmpty()
-      .isStrongPassword({
-        minLength: 12,
-        minLowercase: 1,
-        minUppercase: 1,
-        minNumbers: 1,
-        minSymbols: 1,
-      })
-      .withMessage('Password does not meet requirements.'),
+      .withMessage('Invalid credentials, please review and try again.'),
   ];
 };
 
 /* ******************************
  * Check data and return errors or continue to registration
  * ***************************** */
-const checkSignupData = async (req, res, next) => {
+const checkUserData = async (req, res, next) => {
   const { acc_firstname, acc_lastname, acc_email } = req.body;
   let errors = [];
   errors = validationResult(req);
@@ -96,4 +99,4 @@ const checkSignupData = async (req, res, next) => {
   next();
 };
 
-module.exports = { signupRules, loginRules, checkSignupData };
+module.exports = { signupRules, loginRules, checkUserData };

@@ -9,8 +9,8 @@ const {
 } = require('../controllers/accountController');
 const {
   signupRules,
-  checkSignupData,
   loginRules,
+  checkUserData,
 } = require('../utilities/account-validation');
 
 const accountRouter = new Router();
@@ -23,14 +23,14 @@ accountRouter.get('/signup', handleErrors(buildSignup));
 accountRouter.post(
   '/signup',
   signupRules(),
-  checkSignupData,
+  checkUserData,
   handleErrors(signupUser)
 );
 
 accountRouter.post(
   '/login',
-  // loginRules(),
-  // checkSignupData,
+  loginRules(),
+  checkUserData,
   handleErrors(loginUser)
 );
 

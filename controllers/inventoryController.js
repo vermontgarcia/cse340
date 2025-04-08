@@ -6,6 +6,7 @@ const {
   getNav,
   buildClassificationGrid,
   buildInventoryGrid,
+  buildDeleteInventoryGrid,
   buildManagementGrid,
   buildAddClassGrid,
   buildAddInvGrid,
@@ -53,6 +54,19 @@ const buildAddClass = async (req, res, next) => {
 
   res.render('./inventory/add-classification', {
     title,
+    nav,
+    errors: null,
+  });
+};
+
+const buildDeleteByInventoryId = async (req, res, next) => {
+  const invId = req.params.invId;
+  const { grid, title } = await buildDeleteInventoryGrid(invId);
+  const nav = await getNav();
+
+  res.render('./inventory/delete-confirm', {
+    title,
+    grid,
     nav,
     errors: null,
   });
@@ -112,12 +126,22 @@ const addInventory = async (req, res) => {
   }
 };
 
+const deleteInvById = async (req, res) => {
+  try {
+    return res.redirect('/');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   buildByClassificationId,
   buildByInventoryId,
+  buildDeleteByInventoryId,
   buildManagement,
   buildAddClass,
   addClassification,
   buildAddInventory,
   addInventory,
+  deleteInvById,
 };

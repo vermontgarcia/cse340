@@ -10,6 +10,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 const pool = require('./database/');
 const static = require('./routes/static');
@@ -17,7 +18,7 @@ const inventoryRouter = require('./routes/inventoryRoute');
 const serverErrorRouter = require('./routes/serverErrorRouter');
 const accountRouter = require('./routes/accountRoute');
 const { buildHome } = require('./controllers/baseController');
-const { getNav, handleErrors } = require('./utilities');
+const { getNav, handleErrors, checkJWTToken } = require('./utilities');
 const { gridErrorTemplate } = require('./templates');
 
 /* ***********************
@@ -38,6 +39,8 @@ app.use(
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(checkJWTToken);
 
 // Express Messages Middleware
 app.use(require('connect-flash')());

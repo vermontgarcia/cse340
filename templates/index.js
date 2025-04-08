@@ -212,32 +212,35 @@ const gridErrorTemplate = ({
   </div>
 `;
 
-const loginGridTemplate = () => `
-  <form class="form" action="/account/login" method="post">
-    <fieldset>
-      <label
-        >Email<span class="required">*</span>
-        <input type="email" name="acc_email" id="email" required autocomplete />
-      </label>
-      <label
-        >Password<span class="required">*</span>
-        <input
-          type="password"
-          name="acc_password"
-          id="password"
-          required
-          autocomplete
-        />
-      </label>
-    </fieldset>
-    <fieldset class="submit-btn-container">
-      <input type="submit" role="button" value="Login" />
-    </fieldset>
-    <div>
-      <p>No account? <a href="/account/signup">Sign Up</a></p>
-    </div>
-  </form>
+const accountGridTemplate = () => `
+  <div>My Account</div>
 `;
+
+// Pattern stiky doesn't work with template
+// const loginGridTemplate = () => `
+//   <form class="form" action="/account/login" method="post">
+//     <fieldset>
+//       <label
+//         >Email<span class="required">*</span>
+//       </label>
+//       <label
+//         >Password<span class="required">*</span>
+//         <input
+//           type="password"
+//           name="acc_password"
+//           id="password"
+//           required
+//         />
+//       </label>
+//     </fieldset>
+//     <fieldset class="submit-btn-container">
+//       <input type="submit" role="button" value="Login" />
+//     </fieldset>
+//     <div>
+//       <p>No account? <a href="/account/signup">Sign Up</a></p>
+//     </div>
+//   </form>
+// `;
 
 // Pattern with regular expression doesn't work with template
 // const signupGridTemplate = () => `
@@ -298,7 +301,7 @@ module.exports = {
   gridInventoryDetailsTemplate,
   noVehiclesTemplate,
   gridErrorTemplate,
-  loginGridTemplate,
+  accountGridTemplate,
   gridManagementTemplate,
   gridInventoryDetailsDeleteTemplate,
   clasOptionsTemplate,

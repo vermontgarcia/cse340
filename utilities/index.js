@@ -1,3 +1,5 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const {
   getClassifications,
   getInventoryByClassificationId,
@@ -8,10 +10,11 @@ const {
   gridInventoryDetailsTemplate,
   gridTemplate,
   navTemplate,
-  loginGridTemplate,
+  gridInventoryDetailsDeleteTemplate,
   gridManagementTemplate,
   noVehiclesTemplate,
   clasOptionsTemplate,
+  accountGridTemplate,
 } = require('../templates');
 
 const getNav = async (req, res, next) => {
@@ -78,10 +81,17 @@ const buildAddInvGrid = async () => {
   };
 };
 
+const buildDeleteInventoryGrid = async (invId) => {
+  const inventoryDetail = await getDetailsByInventoryId(invId);
+  return {
+    grid: gridInventoryDetailsDeleteTemplate(inventoryDetail),
+    title: `${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
+  };
+};
+
 const buildLoginGrid = () => {
   const title = `Login`;
   return {
-    grid: loginGridTemplate(),
     title,
   };
 };
@@ -89,6 +99,14 @@ const buildLoginGrid = () => {
 const buildSignupGrid = () => {
   const title = `Signup`;
   return {
+    title,
+  };
+};
+
+const buildAccountGrid = () => {
+  const title = `You are logged in`;
+  return {
+    grid: accountGridTemplate(),
     title,
   };
 };
@@ -101,6 +119,30 @@ const buildSignupGrid = () => {
 const handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+const checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      (err, accountData) => {
+        if (err) {
+          req.flash('Please log in');
+          res.clearCookie('jwt');
+          return res.redirect('/account/login');
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   getNav,
   buildClassificationGrid,
@@ -108,7 +150,10 @@ module.exports = {
   handleErrors,
   buildLoginGrid,
   buildSignupGrid,
+  buildAccountGrid,
+  checkJWTToken,
   buildManagementGrid,
   buildAddClassGrid,
   buildAddInvGrid,
+  buildDeleteInventoryGrid,
 };

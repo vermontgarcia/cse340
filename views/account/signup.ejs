@@ -1,7 +1,7 @@
 <% if (title) { %>
 <h1><%= title %></h1>
 <% } else { res.redirect('/') } %> <% if (errors) { %>
-<ul class="notice">
+<ul class="notice error">
   <% errors.array().forEach(error => { %>
   <li><%= error.msg %></li>
   <% }) %>
@@ -20,6 +20,7 @@ rules validation as it is not working when parsing as a template -->
         id="firstname"
         required
         autocomplete
+        value="<%= locals.acc_firstname %>"
       />
     </label>
     <label
@@ -30,11 +31,19 @@ rules validation as it is not working when parsing as a template -->
         id="lastname"
         required
         autocomplete
+        value="<%= locals.acc_lastname %>"
       />
     </label>
     <label
       >Email<span class="required">*</span>
-      <input type="email" name="acc_email" id="email" required autocomplete />
+      <input
+        type="email"
+        name="acc_email"
+        id="email"
+        required
+        autocomplete
+        value="<%= locals.acc_email %>"
+      />
     </label>
     <label id="password-field" for="acc_password"
       ><span>Password</span> <span class="required">*</span>
