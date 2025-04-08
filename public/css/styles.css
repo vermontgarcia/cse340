@@ -459,6 +459,36 @@ section.management select {
   padding: 0;
 }
 
+/* Delete Confirmation */
+#delete-form {
+  max-width: 550px;
+  margin: 2rem auto;
+}
+
+#delete-form .submit-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: none;
+}
+
+#delete-form .submit-btn-container .cancel-btn,
+#delete-form .submit-btn-container .delete {
+  width: 10rem;
+  padding: 0.75rem;
+  text-align: center;
+  background-color: var(--dark-grey);
+  color: var(--mercury);
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px var(--dark-grey);
+  cursor: pointer;
+}
+
+#delete-form .submit-btn-container .delete {
+  background-color: var(--required-asterisc);
+  color: var(--mercury);
+}
+
 /* Messages and Error Notification */
 .notice.error {
   color: var(--required-asterisc);
