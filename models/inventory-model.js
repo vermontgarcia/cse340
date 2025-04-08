@@ -90,7 +90,7 @@ const createInventory = async (formData) => {
 /* ***************************
  *  Update Inventory Data
  * ************************** */
-const updateInventory = async (
+const updateInventory = async ({
   inv_id,
   inv_make,
   inv_model,
@@ -101,11 +101,11 @@ const updateInventory = async (
   inv_year,
   inv_miles,
   inv_color,
-  class_id
-) => {
+  clas_id,
+}) => {
   try {
     const sql =
-      'UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *';
+      'UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, clas_id = $10 WHERE inv_id = $11 RETURNING *';
     const data = await pool.query(sql, [
       inv_make,
       inv_model,
@@ -116,7 +116,7 @@ const updateInventory = async (
       inv_year,
       inv_miles,
       inv_color,
-      class_id,
+      clas_id,
       inv_id,
     ]);
     return data.rows[0];

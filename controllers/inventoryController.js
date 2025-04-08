@@ -3,6 +3,7 @@ const {
   createInventory,
   getInventoryByClassificationId,
   getDetailsByInventoryId,
+  updateInventory,
 } = require('../models/inventory-model');
 const {
   getNav,
@@ -90,10 +91,11 @@ const buildAddInventory = async (req, res, next) => {
 
 const buildEditInventory = async (req, res, next) => {
   const { invId } = req.params;
-  const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid(
-    'Edit'
-  );
   const formData = await getDetailsByInventoryId(invId);
+  const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid(
+    'Edit',
+    formData.clas_id
+  );
   res.render('./inventory/add-update-inventory', {
     title,
     nav,
@@ -149,6 +151,28 @@ const addInventory = async (req, res) => {
   }
 };
 
+const editInventory = async (req, res) => {
+  const { invId } = req.params;
+  const formData = req.body;
+  formData.inv_id = invId;
+  console.log(formData);
+  const result = await updateInventory(formData);
+  if (result) {
+    req.flash(
+      'notice',
+      `Vehicle ${formData.inv_make} ${formData.inv_model} Updated`
+    );
+    const { title, nav, grid, clasOptions } = await buildManagementGrid();
+    res.render('./inventory/management', {
+      title,
+      nav,
+      grid,
+      clasOptions,
+      errors: null,
+    });
+  }
+};
+
 const getInventoryByClasId = async (req, res, next) => {
   const clas_id = parseInt(req.params.clasId);
   const invData = await getInventoryByClassificationId(clas_id);
@@ -174,6 +198,7 @@ module.exports = {
   buildAddInventory,
   addInventory,
   buildEditInventory,
+  editInventory,
   deleteInvById,
   getInventoryByClasId,
 };

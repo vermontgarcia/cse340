@@ -10,6 +10,7 @@ const {
   addInventory,
   getInventoryByClasId,
   buildEditInventory,
+  editInventory,
 } = require('../controllers/inventoryController');
 const { handleErrors } = require('../utilities');
 const {
@@ -17,6 +18,7 @@ const {
   checkAddClassificatonData,
   addInventoryRules,
   checkAddInventoryData,
+  checkEditInventoryData,
 } = require('../utilities/inventory-validation');
 
 const inventoryRouter = new Router();
@@ -45,6 +47,12 @@ inventoryRouter.get(
 );
 
 inventoryRouter.get('/edit/:invId', buildEditInventory);
+inventoryRouter.post(
+  '/edit/:invId',
+  addInventoryRules(),
+  checkEditInventoryData,
+  handleErrors(editInventory)
+);
 
 inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);
 inventoryRouter.delete('/delete/:invId');

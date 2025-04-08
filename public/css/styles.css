@@ -16,6 +16,7 @@
   --tertiary-color: #8a470c;
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
+  --disabled-grey: #807f7f;
   --text-black: #000000;
 
   /* sizes */
@@ -382,6 +383,12 @@ nav ul li a:hover {
   width: 2rem;
   height: auto;
   cursor: pointer;
+}
+
+#submit-btn:disabled {
+  background-color: var(--disabled-grey);
+  cursor: auto;
+  box-shadow: none;
 }
 
 /* Inventory Management */

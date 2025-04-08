@@ -92,7 +92,10 @@ const checkAddInventoryData = async (req, res, next) => {
   const formData = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid();
+    const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid(
+      'Add',
+      parseInt(formData.clas_id)
+    );
     res.render('./inventory/add-update-inventory', {
       errors,
       title,
@@ -106,9 +109,35 @@ const checkAddInventoryData = async (req, res, next) => {
   next();
 };
 
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+const checkEditInventoryData = async (req, res, next) => {
+  const { invId } = req.params;
+  const formData = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid(
+      'Edit',
+      parseInt(formData.clas_id)
+    );
+    res.render('./inventory/add-update-inventory', {
+      errors,
+      title,
+      nav,
+      clasOptions,
+      formData,
+      formAction: `${formAction}/${invId}`,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   addClassificaitonRules,
   checkAddClassificatonData,
   addInventoryRules,
   checkAddInventoryData,
+  checkEditInventoryData,
 };

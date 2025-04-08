@@ -20,12 +20,17 @@ const navTemplate = (data) => `
   </ul>
 `;
 
-const clasOptionTemplate = ({ clas_id, clas_name }) => `
-  <option value=${clas_id}>${clas_name}</option>
+const clasOptionTemplate =
+  (clasId) =>
+  ({ clas_id, clas_name }) =>
+    `
+  <option value=${clas_id} ${
+      clasId === clas_id ? 'selected' : ''
+    }>${clas_name}</option>
 `;
 
-const clasOptionsTemplate = (data) => `
-  ${data.rows.map(clasOptionTemplate).join('')}
+const clasOptionsTemplate = (data, clas_id) => `
+  ${data.rows.map(clasOptionTemplate(clas_id)).join('')}
 `;
 
 // Grid Inventory by Cassification Templates

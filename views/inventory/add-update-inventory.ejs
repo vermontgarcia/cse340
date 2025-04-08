@@ -7,7 +7,7 @@
   <% }) %>
 </ul>
 <% } %> <%- messages() %>
-<form class="form" action="<%- formAction %>" method="post">
+<form id="add-edit-form" class="form" action="<%- formAction %>" method="post">
   <fieldset>
     <label
       >Classification<span class="required">*</span>
@@ -15,7 +15,6 @@
         name="clas_id"
         id="clasId"
         required
-        value="<%= typeof formData.clas_id !== 'undefined' ? formData.clas_id : '' %>"
       >
         <option
           value=""
@@ -121,6 +120,7 @@
     </label>
   </fieldset>
   <fieldset class="submit-btn-container">
-    <input type="submit" role="button" value="<%- title %>" />
+    <input id="submit-btn" type="submit" role="button" value="<%- title %>" disabled />
   </fieldset>
 </form>
+<script src="/js/add-edit-inventory.js"></script>

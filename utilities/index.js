@@ -22,9 +22,9 @@ const getNav = async (req, res, next) => {
   return navTemplate(data);
 };
 
-const getClasOptions = async () => {
+const getClasOptions = async (clas_id) => {
   const data = await getClassifications();
-  return clasOptionsTemplate(data);
+  return clasOptionsTemplate(data, clas_id);
 };
 
 const buildClassificationGrid = async (clasId) => {
@@ -71,9 +71,9 @@ const buildAddClassGrid = async () => {
   };
 };
 
-const buildAddEditInvGrid = async (type = 'Add') => {
+const buildAddEditInvGrid = async (type = 'Add', clas_id) => {
   const nav = await getNav();
-  const clasOptions = await getClasOptions();
+  const clasOptions = await getClasOptions(clas_id);
   formData = {};
   const formAction = type === 'Edit' ? '/inv/edit' : '/inv/inventory';
   return {
