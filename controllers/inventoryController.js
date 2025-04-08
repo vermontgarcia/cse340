@@ -4,6 +4,7 @@ const {
   getInventoryByClassificationId,
   getDetailsByInventoryId,
   updateInventory,
+  deleteInventoryById,
 } = require('../models/inventory-model');
 const {
   getNav,
@@ -157,7 +158,6 @@ const editInventory = async (req, res) => {
   const { invId } = req.params;
   const formData = req.body;
   formData.inv_id = invId;
-  console.log(formData);
   const result = await updateInventory(formData);
   if (result) {
     req.flash(
@@ -183,9 +183,19 @@ const getInventoryByClasId = async (req, res, next) => {
 };
 
 const deleteInventory = async (req, res) => {
-  console.log('deleting');
+  const { invId } = req.params;
   try {
-    return res.redirect('/inv');
+    const result = await deleteInventoryById(invId);
+    if (result) {
+      req.flash(
+        'notice',
+        `${result.inv_year} ${result.inv_make} ${result.inv_model} deleted successfully!`
+      );
+      return res.redirect('/inv');
+    } else {
+      req.flash('notice', `Vehicle couldn't be deleted!`);
+      return res.redirect(`/inv/delete/${invId}`);
+    }
   } catch (error) {
     console.log(error);
   }

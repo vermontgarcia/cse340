@@ -465,8 +465,8 @@ section.management select {
   margin: 2rem auto;
 }
 
-#delete-form p {
-  padding: 2rem;
+#delete-form > p {
+  padding: 0 2rem 2rem;
   font-size: 1.2rem;
   display: block;
   color: var(--required-asterisc);

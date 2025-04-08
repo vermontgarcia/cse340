@@ -1,6 +1,6 @@
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } else { res.redirect('/') } %> <% messages() %>
+<% } else { res.redirect('/') } %> <%- messages() %>
 
 <form id="delete-form" action="/inv/delete/<%- invId %>" method="post">
   <p><%- deleteMessage %></p>

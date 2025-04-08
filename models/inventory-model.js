@@ -128,14 +128,13 @@ const updateInventory = async ({
 /* ***************************
  *  Delete Inventory Data
  * ************************** */
-const deleteInventory = async (inv_id) => {
+const deleteInventoryById = async (inv_id) => {
   try {
-    const sql = 'DELETE FROM inventory WHERE inv_id = $1';
-
+    const sql = 'DELETE FROM inventory WHERE inv_id = $1 RETURNING *';
     const data = await pool.query(sql, [inv_id]);
-    return data;
+    return data.rows[0];
   } catch (error) {
-    console.error('model error: ' + error);
+    console.error('deleteInventoryById error: ', error);
   }
 };
 
@@ -147,5 +146,5 @@ module.exports = {
   getClassificationById,
   createInventory,
   updateInventory,
-  deleteInventory,
+  deleteInventoryById,
 };
