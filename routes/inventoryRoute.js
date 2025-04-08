@@ -8,6 +8,7 @@ const {
   addClassification,
   buildAddInventory,
   addInventory,
+  getInventoryByClasId,
 } = require('../controllers/inventoryController');
 const { handleErrors } = require('../utilities');
 const {
@@ -35,6 +36,10 @@ inventoryRouter.post(
   addInventoryRules(),
   checkAddInventoryData,
   handleErrors(addInventory)
+);
+inventoryRouter.get(
+  '/getInventory/:clasId',
+  handleErrors(getInventoryByClasId)
 );
 
 inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);

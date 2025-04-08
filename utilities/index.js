@@ -54,10 +54,12 @@ const buildInventoryGrid = async (invId) => {
 
 const buildManagementGrid = async () => {
   const nav = await getNav();
+  const clasOptions = await getClasOptions();
   return {
     title: `Vehicle Management`,
     nav,
     grid: gridManagementTemplate(),
+    clasOptions,
   };
 };
 

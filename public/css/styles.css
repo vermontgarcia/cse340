@@ -403,6 +403,56 @@ nav ul li a:hover {
   color: var(--valid);
 }
 
+/* Management Inventory */
+section.management {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section.management > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 550px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+section.management select {
+  background-color: var(--mercury);
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: none;
+}
+
+#inventoryDisplay {
+  max-width: 550PX;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#inventoryDisplay tbody td {
+  padding: 0.75rem;
+}
+
+#inventoryDisplay tbody .action {
+  text-align: center;
+}
+
+#inventoryDisplay tbody tr:nth-child(odd) {
+  background-color: var(--mercury);
+  border: solid 1px var(--mercury);
+}
+
+#inventoryDisplay p {
+  align-items: center;
+  padding: 0;
+}
+
+/* Messages and Error Notification */
 .notice.error {
   color: var(--required-asterisc);
 }
