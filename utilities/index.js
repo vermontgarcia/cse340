@@ -71,15 +71,17 @@ const buildAddClassGrid = async () => {
   };
 };
 
-const buildAddInvGrid = async () => {
+const buildAddEditInvGrid = async (type = 'Add') => {
   const nav = await getNav();
   const clasOptions = await getClasOptions();
   formData = {};
+  const formAction = type === 'Edit' ? '/inv/edit' : '/inv/inventory';
   return {
-    title: `Add Vehicle`,
+    title: `${type} Vehicle`,
     nav,
     clasOptions,
     formData,
+    formAction,
   };
 };
 
@@ -156,6 +158,6 @@ module.exports = {
   checkJWTToken,
   buildManagementGrid,
   buildAddClassGrid,
-  buildAddInvGrid,
+  buildAddEditInvGrid,
   buildDeleteInventoryGrid,
 };

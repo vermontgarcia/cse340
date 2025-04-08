@@ -1,5 +1,5 @@
 const { body, validationResult } = require('express-validator');
-const { buildAddClassGrid, buildAddInvGrid } = require('.');
+const { buildAddClassGrid, buildAddEditInvGrid } = require('.');
 
 const addClassificaitonRules = () => {
   return [
@@ -92,13 +92,14 @@ const checkAddInventoryData = async (req, res, next) => {
   const formData = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const { title, nav, clasOptions } = await buildAddInvGrid();
-    res.render('./inventory/add-inventory', {
+    const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid();
+    res.render('./inventory/add-update-inventory', {
       errors,
       title,
       nav,
       clasOptions,
       formData,
+      formAction,
     });
     return;
   }

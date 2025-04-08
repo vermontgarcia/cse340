@@ -9,6 +9,7 @@ const {
   buildAddInventory,
   addInventory,
   getInventoryByClasId,
+  buildEditInventory,
 } = require('../controllers/inventoryController');
 const { handleErrors } = require('../utilities');
 const {
@@ -25,6 +26,7 @@ inventoryRouter.get('/detail/:invId', buildByInventoryId);
 inventoryRouter.get('/', buildManagement);
 inventoryRouter.get('/classification', buildAddClass);
 inventoryRouter.get('/inventory', buildAddInventory);
+
 inventoryRouter.post(
   '/classification',
   addClassificaitonRules(),
@@ -41,6 +43,8 @@ inventoryRouter.get(
   '/getInventory/:clasId',
   handleErrors(getInventoryByClasId)
 );
+
+inventoryRouter.get('/edit/:invId', buildEditInventory);
 
 inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);
 inventoryRouter.delete('/delete/:invId');

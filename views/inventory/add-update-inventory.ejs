@@ -7,7 +7,7 @@
   <% }) %>
 </ul>
 <% } %> <%- messages() %>
-<form class="form" action="/inv/inventory" method="post">
+<form class="form" action="<%- formAction %>" method="post">
   <fieldset>
     <label
       >Classification<span class="required">*</span>
@@ -121,6 +121,6 @@
     </label>
   </fieldset>
   <fieldset class="submit-btn-container">
-    <input type="submit" role="button" value="Add Vehicle" />
+    <input type="submit" role="button" value="<%- title %>" />
   </fieldset>
 </form>

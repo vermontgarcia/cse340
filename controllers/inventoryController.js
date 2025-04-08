@@ -2,6 +2,7 @@ const {
   createClassification,
   createInventory,
   getInventoryByClassificationId,
+  getDetailsByInventoryId,
 } = require('../models/inventory-model');
 const {
   getNav,
@@ -10,7 +11,7 @@ const {
   buildDeleteInventoryGrid,
   buildManagementGrid,
   buildAddClassGrid,
-  buildAddInvGrid,
+  buildAddEditInvGrid,
 } = require('../utilities');
 
 const buildByClassificationId = async (req, res, next) => {
@@ -75,11 +76,29 @@ const buildDeleteByInventoryId = async (req, res, next) => {
 };
 
 const buildAddInventory = async (req, res, next) => {
-  const { title, nav, clasOptions, formData } = await buildAddInvGrid();
-  res.render('./inventory/add-inventory', {
+  const { title, nav, clasOptions, formData, formAction } =
+    await buildAddEditInvGrid();
+  res.render('./inventory/add-update-inventory', {
     title,
     nav,
     clasOptions,
+    formData,
+    formAction,
+    errors: null,
+  });
+};
+
+const buildEditInventory = async (req, res, next) => {
+  const { invId } = req.params;
+  const { title, nav, clasOptions, formAction } = await buildAddEditInvGrid(
+    'Edit'
+  );
+  const formData = await getDetailsByInventoryId(invId);
+  res.render('./inventory/add-update-inventory', {
+    title,
+    nav,
+    clasOptions,
+    formAction: `${formAction}/${invId}`,
     formData,
     errors: null,
   });
@@ -154,6 +173,7 @@ module.exports = {
   addClassification,
   buildAddInventory,
   addInventory,
+  buildEditInventory,
   deleteInvById,
   getInventoryByClasId,
 };
