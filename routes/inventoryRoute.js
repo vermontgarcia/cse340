@@ -11,6 +11,7 @@ const {
   getInventoryByClasId,
   buildEditInventory,
   editInventory,
+  deleteInventory,
 } = require('../controllers/inventoryController');
 const { handleErrors } = require('../utilities');
 const {
@@ -55,6 +56,6 @@ inventoryRouter.post(
 );
 
 inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);
-inventoryRouter.delete('/delete/:invId');
+inventoryRouter.post('/delete/:invId', handleErrors(deleteInventory));
 
 module.exports = inventoryRouter;

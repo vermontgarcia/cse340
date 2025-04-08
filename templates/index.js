@@ -67,7 +67,6 @@ const gridTemplate = (rows) => `
 // Grid Inventory Details Templates
 
 const gridInventoryDetailsTemplate = ({
-  inv_id: id,
   inv_year: year,
   inv_make: make,
   inv_model: model,
@@ -78,7 +77,6 @@ const gridInventoryDetailsTemplate = ({
   inv_miles: miles,
 }) => `
   <div>
-    <a href="/inv/delete/${id}">delete</a>
     <div class="inventory-details-wrapper">
       <img
         src="${image}"
@@ -139,56 +137,6 @@ const gridManagementTemplate = () => `
 //   </fieldset>
 // </form>
 // `;
-
-const gridInventoryDetailsDeleteTemplate = ({
-  inv_id: id,
-  inv_year: year,
-  inv_make: make,
-  inv_model: model,
-  inv_image: image,
-  inv_price: price,
-  inv_description: description,
-  inv_color: color,
-  inv_miles: miles,
-}) => `
-  <div>
-    <div class="inventory-details-wrapper">
-      <img
-        src="${image}"
-        alt="Image of ${year} ${make} ${model}"
-        width="100"
-        height="100"
-      />
-      <div>
-        <h2>${make} ${model} Details</h2>
-        <ul>
-          <li>
-            <strong>
-              Price: $ ${formattedNumber(price)}
-            </strong>
-          </li>
-          <li>
-            <strong>Description:</strong>
-            <p>${description}</p>
-          </li>
-          <li>
-            <strong>Color:</strong>
-            <p>${color}</p>
-          </li>
-          <li>
-            <strong>Miles:</strong>
-            <p>${formattedNumber(miles)}</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <form class="form" action="/inv/delete/${id}" method="post">
-      <fieldset class="submit-btn-container">
-        <input type="submit" role="button" value="Delete" />
-      </fieldset>
-    </form>
-  </div>
-`;
 
 // No vehicles template
 
@@ -308,6 +256,5 @@ module.exports = {
   gridErrorTemplate,
   accountGridTemplate,
   gridManagementTemplate,
-  gridInventoryDetailsDeleteTemplate,
   clasOptionsTemplate,
 };

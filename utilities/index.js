@@ -10,7 +10,6 @@ const {
   gridInventoryDetailsTemplate,
   gridTemplate,
   navTemplate,
-  gridInventoryDetailsDeleteTemplate,
   gridManagementTemplate,
   noVehiclesTemplate,
   clasOptionsTemplate,
@@ -88,8 +87,8 @@ const buildAddEditInvGrid = async (type = 'Add', clas_id) => {
 const buildDeleteInventoryGrid = async (invId) => {
   const inventoryDetail = await getDetailsByInventoryId(invId);
   return {
-    grid: gridInventoryDetailsDeleteTemplate(inventoryDetail),
-    title: `${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
+    grid: gridInventoryDetailsTemplate(inventoryDetail),
+    title: `Delete Confirmation - ${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
   };
 };
 

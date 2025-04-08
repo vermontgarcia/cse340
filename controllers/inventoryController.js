@@ -72,6 +72,7 @@ const buildDeleteByInventoryId = async (req, res, next) => {
     title,
     grid,
     nav,
+    invId,
     errors: null,
   });
 };
@@ -180,9 +181,10 @@ const getInventoryByClasId = async (req, res, next) => {
   return res.json(invData);
 };
 
-const deleteInvById = async (req, res) => {
+const deleteInventory = async (req, res) => {
+  console.log('deleting');
   try {
-    return res.redirect('/');
+    return res.redirect('/inv');
   } catch (error) {
     console.log(error);
   }
@@ -199,6 +201,6 @@ module.exports = {
   addInventory,
   buildEditInventory,
   editInventory,
-  deleteInvById,
+  deleteInventory,
   getInventoryByClasId,
 };
