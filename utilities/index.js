@@ -94,25 +94,31 @@ const buildDeleteInventoryGrid = async (invId) => {
   };
 };
 
-const buildLoginGrid = () => {
+const buildLoginGrid = async () => {
+  const nav = await getNav();
   const title = `Login`;
   return {
     title,
+    nav,
   };
 };
 
-const buildSignupGrid = () => {
+const buildSignupGrid = async () => {
+  const nav = await getNav();
   const title = `Signup`;
   return {
     title,
+    nav,
   };
 };
 
-const buildAccountGrid = () => {
+const buildAccountGrid = async () => {
+  const nav = await getNav();
   const title = `You are logged in`;
   return {
     grid: accountGridTemplate(),
     title,
+    nav,
   };
 };
 

@@ -3,15 +3,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { createUser, getAccountByEmail } = require('../models/account-model');
 const {
-  getNav,
   buildLoginGrid,
   buildSignupGrid,
   buildAccountGrid,
 } = require('../utilities');
 
 const buildAccount = async (req, res, next) => {
-  const nav = await getNav();
-  const { grid, title } = buildAccountGrid();
+  const { grid, title, nav } = await buildAccountGrid();
   res.render('./account/', {
     title,
     nav,
@@ -21,8 +19,7 @@ const buildAccount = async (req, res, next) => {
 };
 
 const buildLogin = async (req, res, next) => {
-  const nav = await getNav();
-  const { title } = buildLoginGrid();
+  const { title, nav } = await buildLoginGrid();
   res.render('./account/login', {
     title,
     nav,
@@ -31,18 +28,15 @@ const buildLogin = async (req, res, next) => {
 };
 
 const buildSignup = async (req, res, next) => {
-  const nav = await getNav();
-  const { grid, title } = buildSignupGrid();
+  const { title, nav } = await buildSignupGrid();
   res.render('./account/signup', {
     title,
     nav,
-    // grid,
     errors: null,
   });
 };
 
 const signupUser = async (req, res) => {
-  let nav = await getNav();
   const { acc_firstname, acc_lastname, acc_email, acc_password } = req.body;
 
   let hashedPassword;
@@ -53,8 +47,9 @@ const signupUser = async (req, res) => {
       'notice',
       'Sorry, there was an error processing the registration.'
     );
+    const { title, nav } = await buildSignupGrid();
     res.status(500).render('./account/register', {
-      title: 'Registration',
+      title,
       nav,
       errors: null,
     });
@@ -72,20 +67,18 @@ const signupUser = async (req, res) => {
       'notice',
       `Congratulations ${acc_firstname}, you\'re registered. Hurray!!! Please log in.`
     );
-    const { grid, title } = buildLoginGrid();
+    const { title, nav } = await buildLoginGrid();
     res.status(201).render('account/login', {
       title,
       nav,
-      grid,
       errors: null,
     });
   } else {
     req.flash('notice', 'Sorry, the registration failed.');
-    const { grid, title } = buildSignupGrid();
+    const { title, nav } = await buildSignupGrid();
     res.status(501).render('./account/signup', {
       title,
       nav,
-      // grid,
       errors: null,
     });
   }
@@ -95,9 +88,8 @@ const signupUser = async (req, res) => {
  *  Process login request
  * ************************************ */
 const loginUser = async (req, res) => {
-  let nav = await getNav();
   const { acc_email, acc_password } = req.body;
-  const { title } = buildLoginGrid();
+  const { title, nav } = await buildLoginGrid();
   const accountData = await getAccountByEmail(acc_email);
   if (!accountData) {
     req.flash('notice', 'Please check your credentials and try again.');
