@@ -52,6 +52,29 @@ const signupRules = () => {
   ];
 };
 
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+const checkUserSignupData = async (req, res, next) => {
+  const { acc_firstname, acc_lastname, acc_email } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { grid, title, nav } = await buildSignupGrid();
+    res.render('account/signup', {
+      errors,
+      title,
+      nav,
+      grid,
+      acc_firstname,
+      acc_lastname,
+      acc_email,
+    });
+    return;
+  }
+  next();
+};
+
 /*  **********************************
  *  Login Data Validation Rules
  * ********************************* */
@@ -75,27 +98,28 @@ const loginRules = () => {
 };
 
 /* ******************************
- * Check data and return errors or continue to registration
+ * Check data and return errors or continue to login
  * ***************************** */
-const checkUserData = async (req, res, next) => {
-  const { acc_firstname, acc_lastname, acc_email } = req.body;
+const checkUserLoginData = async (req, res, next) => {
+  const { acc_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
-    let nav = await getNav();
-    const { grid, title } = buildSignupGrid();
-    res.render('account/signup', {
+    const { grid, title, nav } = await buildSignupGrid();
+    res.render('account/login', {
       errors,
       title,
       nav,
       grid,
-      acc_firstname,
-      acc_lastname,
-      acc_email,
     });
     return;
   }
   next();
 };
 
-module.exports = { signupRules, loginRules, checkUserData };
+module.exports = {
+  signupRules,
+  loginRules,
+  checkUserSignupData,
+  checkUserLoginData,
+};
