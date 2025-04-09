@@ -154,6 +154,35 @@ const checkJWTToken = (req, res, next) => {
   }
 };
 
+/* ****************************************
+ * Middleware to check Admin or Employee account type
+ **************************************** */
+const isEmployeeOrAdmin = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      (err, accountData) => {
+        if (err) {
+          req.flash('Please log in');
+          res.clearCookie('jwt');
+          return res.redirect('/account/login');
+        }
+        const { acc_type } = accountData;
+        if (acc_type === 'Employee' || acc_type === 'Admin') {
+          next();
+        } else {
+          req.flash(
+            'notice',
+            'Access denied. You are not allowed to access this resource.'
+          );
+          return res.redirect(req.baseUrl);
+        }
+      }
+    );
+  }
+};
+
 module.exports = {
   getNav,
   buildClassificationGrid,
@@ -167,4 +196,5 @@ module.exports = {
   buildAddClassGrid,
   buildAddEditInvGrid,
   buildDeleteInventoryGrid,
+  isEmployeeOrAdmin,
 };

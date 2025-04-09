@@ -13,7 +13,7 @@ const {
   editInventory,
   deleteInventory,
 } = require('../controllers/inventoryController');
-const { handleErrors } = require('../utilities');
+const { handleErrors, isEmployeeOrAdmin } = require('../utilities');
 const {
   addClassificaitonRules,
   checkAddClassificatonData,
@@ -24,38 +24,50 @@ const {
 
 const inventoryRouter = new Router();
 
+// Open Routes
 inventoryRouter.get('/type/:clasId', buildByClassificationId);
 inventoryRouter.get('/detail/:invId', buildByInventoryId);
 inventoryRouter.get('/', buildManagement);
-inventoryRouter.get('/classification', buildAddClass);
-inventoryRouter.get('/inventory', buildAddInventory);
+inventoryRouter.get(
+  '/getInventory/:clasId',
+  handleErrors(getInventoryByClasId)
+);
+
+// Protected Routes
+inventoryRouter.get('/classification', isEmployeeOrAdmin, buildAddClass);
+inventoryRouter.get('/inventory', isEmployeeOrAdmin, buildAddInventory);
+inventoryRouter.get('/edit/:invId', isEmployeeOrAdmin, buildEditInventory);
+inventoryRouter.get(
+  '/delete/:invId',
+  isEmployeeOrAdmin,
+  buildDeleteByInventoryId
+);
 
 inventoryRouter.post(
   '/classification',
+  isEmployeeOrAdmin,
   addClassificaitonRules(),
   checkAddClassificatonData,
   handleErrors(addClassification)
 );
 inventoryRouter.post(
   '/inventory',
+  isEmployeeOrAdmin,
   addInventoryRules(),
   checkAddInventoryData,
   handleErrors(addInventory)
 );
-inventoryRouter.get(
-  '/getInventory/:clasId',
-  handleErrors(getInventoryByClasId)
-);
-
-inventoryRouter.get('/edit/:invId', buildEditInventory);
 inventoryRouter.post(
   '/edit/:invId',
+  isEmployeeOrAdmin,
   addInventoryRules(),
   checkEditInventoryData,
   handleErrors(editInventory)
 );
-
-inventoryRouter.get('/delete/:invId', buildDeleteByInventoryId);
-inventoryRouter.post('/delete/:invId', handleErrors(deleteInventory));
+inventoryRouter.post(
+  '/delete/:invId',
+  isEmployeeOrAdmin,
+  handleErrors(deleteInventory)
+);
 
 module.exports = inventoryRouter;
