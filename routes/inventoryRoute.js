@@ -27,13 +27,13 @@ const inventoryRouter = new Router();
 // Open Routes
 inventoryRouter.get('/type/:clasId', buildByClassificationId);
 inventoryRouter.get('/detail/:invId', buildByInventoryId);
-inventoryRouter.get('/', buildManagement);
 inventoryRouter.get(
   '/getInventory/:clasId',
   handleErrors(getInventoryByClasId)
 );
 
 // Protected Routes
+inventoryRouter.get('/', isEmployeeOrAdmin, buildManagement);
 inventoryRouter.get('/classification', isEmployeeOrAdmin, buildAddClass);
 inventoryRouter.get('/inventory', isEmployeeOrAdmin, buildAddInventory);
 inventoryRouter.get('/edit/:invId', isEmployeeOrAdmin, buildEditInventory);
