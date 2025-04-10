@@ -6,6 +6,7 @@ const {
   buildLoginGrid,
   buildSignupGrid,
   buildAccountGrid,
+  buildEditAccountGrid,
 } = require('../utilities');
 
 const buildAccount = async (req, res, next) => {
@@ -14,6 +15,15 @@ const buildAccount = async (req, res, next) => {
     title,
     nav,
     grid,
+    errors: null,
+  });
+};
+
+const buildEditAccount = async (req, res, next) => {
+  const { title, nav } = await buildEditAccountGrid();
+  res.render('./account/edit', {
+    title,
+    nav,
     errors: null,
   });
 };
@@ -149,4 +159,5 @@ module.exports = {
   loginUser,
   logoutUser,
   buildAccount,
+  buildEditAccount,
 };

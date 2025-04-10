@@ -7,6 +7,7 @@ const {
   loginUser,
   buildAccount,
   logoutUser,
+  buildEditAccount,
 } = require('../controllers/accountController');
 const {
   signupRules,
@@ -22,6 +23,8 @@ accountRouter.get('/', handleErrors(buildAccount));
 accountRouter.get('/login', handleErrors(buildLogin));
 accountRouter.get('/signup', handleErrors(buildSignup));
 accountRouter.get('/logout', handleErrors(logoutUser));
+
+accountRouter.get('/edit', handleErrors(buildEditAccount));
 
 accountRouter.post(
   '/signup',

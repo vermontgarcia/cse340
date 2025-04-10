@@ -20,7 +20,7 @@ rules validation as it is not working when parsing as a template -->
         id="firstname"
         required
         autocomplete
-        value="<%= acc_firstname %>"
+        value="<%= typeof acc_firstname !== 'undefined' ? acc_firstname : '' %>"
       />
     </label>
     <label
@@ -31,7 +31,7 @@ rules validation as it is not working when parsing as a template -->
         id="lastname"
         required
         autocomplete
-        value="<%= acc_lastname %>"
+        value="<%= typeof acc_lastname !== 'undefined' ? acc_lastname : '' %>"
       />
     </label>
     <label
@@ -42,7 +42,7 @@ rules validation as it is not working when parsing as a template -->
         id="email"
         required
         autocomplete
-        value="<%= acc_email %>"
+        value="<%= typeof acc_email !== 'undefined' ? acc_email : '' %>"
       />
     </label>
     <label id="password-field" for="acc_password"

@@ -122,6 +122,15 @@ const buildAccountGrid = async () => {
   };
 };
 
+const buildEditAccountGrid = async () => {
+  const nav = await getNav();
+  const title = `Update Account`;
+  return {
+    title,
+    nav,
+  };
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
@@ -197,4 +206,5 @@ module.exports = {
   buildAddEditInvGrid,
   buildDeleteInventoryGrid,
   isEmployeeOrAdmin,
+  buildEditAccountGrid,
 };
