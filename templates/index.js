@@ -166,7 +166,8 @@ const gridErrorTemplate = ({
 `;
 
 const accountGridTemplate = () => `
-  <div>My Account</div>
+  <h3>You are logged in!</h3>
+  <a href="/account/edit">Edit Account Information</a>
 `;
 
 // Pattern stiky doesn't work with template

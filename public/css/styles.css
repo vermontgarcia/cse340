@@ -153,6 +153,34 @@ nav ul li a:hover {
   grid-column: 1/2;
 }
 
+/* Header */
+
+#tools {
+  display: flex;
+  align-items: center;
+}
+
+#tools a {
+  padding: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Account Management */
+
+.account-management .client,
+.account-management .employee {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  gap: 0.5rem;
+}
+
+.account-management a {
+  padding-left: 2rem;
+}
+
+
 /* Inventory */
 
 #inv-display {

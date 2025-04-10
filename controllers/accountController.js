@@ -137,10 +137,16 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = (req, res) => {
+  res.clearCookie('jwt');
+  res.redirect('/');
+};
+
 module.exports = {
   buildLogin,
   buildSignup,
   signupUser,
   loginUser,
+  logoutUser,
   buildAccount,
 };

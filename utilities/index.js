@@ -114,7 +114,7 @@ const buildSignupGrid = async () => {
 
 const buildAccountGrid = async () => {
   const nav = await getNav();
-  const title = `You are logged in`;
+  const title = `Account Management`;
   return {
     grid: accountGridTemplate(),
     title,
@@ -174,9 +174,9 @@ const isEmployeeOrAdmin = (req, res, next) => {
         } else {
           req.flash(
             'notice',
-            'Access denied. You are not allowed to access this resource.'
+            'Access denied. Please login with allowed credentials.'
           );
-          return res.redirect(req.baseUrl);
+          return res.redirect('/account/login');
         }
       }
     );
