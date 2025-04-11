@@ -97,18 +97,22 @@ const buildDeleteInventoryGrid = async (invId) => {
 const buildLoginGrid = async () => {
   const nav = await getNav();
   const title = `Login`;
+  const acc_email = '';
   return {
     title,
     nav,
+    acc_email,
   };
 };
 
 const buildSignupGrid = async () => {
   const nav = await getNav();
   const title = `Signup`;
+  const body = { acc_firstname: '', acc_lastname: '', acc_email: '' };
   return {
     title,
     nav,
+    body,
   };
 };
 

@@ -1,5 +1,5 @@
 const { body, validationResult } = require('express-validator');
-const { buildSignupGrid, buildEditAccountGrid } = require('.');
+const { buildSignupGrid, buildEditAccountGrid, buildLoginGrid } = require('.');
 const {
   checkExistingEmail,
   getAccountByEmail,
@@ -60,6 +60,11 @@ const signupRules = () => {
  * ***************************** */
 const checkUserSignupData = async (req, res, next) => {
   const { acc_firstname, acc_lastname, acc_email } = req.body;
+  const body = {
+    acc_firstname,
+    acc_lastname,
+    acc_email,
+  };
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -69,9 +74,7 @@ const checkUserSignupData = async (req, res, next) => {
       title,
       nav,
       grid,
-      acc_firstname,
-      acc_lastname,
-      acc_email,
+      body,
     });
     return;
   }
@@ -108,12 +111,12 @@ const checkUserLoginData = async (req, res, next) => {
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const { grid, title, nav } = await buildSignupGrid();
+    const { title, nav } = await buildLoginGrid();
     res.render('account/login', {
       errors,
       title,
       nav,
-      grid,
+      acc_email,
     });
     return;
   }

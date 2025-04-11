@@ -36,25 +36,32 @@ const buildEditAccount = async (req, res, next) => {
 };
 
 const buildLogin = async (req, res, next) => {
-  const { title, nav } = await buildLoginGrid();
+  const { title, nav, acc_email } = await buildLoginGrid();
   res.render('./account/login', {
     title,
     nav,
     errors: null,
+    acc_email,
   });
 };
 
 const buildSignup = async (req, res, next) => {
-  const { title, nav } = await buildSignupGrid();
+  const { title, nav, body } = await buildSignupGrid();
   res.render('./account/signup', {
     title,
     nav,
     errors: null,
+    body,
   });
 };
 
 const signupUser = async (req, res) => {
   const { acc_firstname, acc_lastname, acc_email, acc_password } = req.body;
+  const body = {
+    acc_firstname,
+    acc_lastname,
+    acc_email,
+  };
 
   let hashedPassword;
   try {
@@ -65,10 +72,12 @@ const signupUser = async (req, res) => {
       'Sorry, there was an error processing the registration.'
     );
     const { title, nav } = await buildSignupGrid();
-    res.status(500).render('./account/register', {
+
+    res.status(500).render('./account/signup', {
       title,
       nav,
       errors: null,
+      body,
     });
   }
 
@@ -89,6 +98,7 @@ const signupUser = async (req, res) => {
       title,
       nav,
       errors: null,
+      acc_email,
     });
   } else {
     req.flash('notice', 'Sorry, the registration failed.');
@@ -97,6 +107,7 @@ const signupUser = async (req, res) => {
       title,
       nav,
       errors: null,
+      body,
     });
   }
 };
