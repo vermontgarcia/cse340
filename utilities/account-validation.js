@@ -60,7 +60,7 @@ const signupRules = () => {
  * ***************************** */
 const checkUserSignupData = async (req, res, next) => {
   const { acc_firstname, acc_lastname, acc_email } = req.body;
-  const body = {
+  const fomrData = {
     acc_firstname,
     acc_lastname,
     acc_email,
@@ -74,7 +74,7 @@ const checkUserSignupData = async (req, res, next) => {
       title,
       nav,
       grid,
-      body,
+      fomrData,
     });
     return;
   }

@@ -20,7 +20,7 @@ rules validation as it is not working when parsing as a template -->
         id="firstname"
         required
         autocomplete
-        value="<%= body.acc_firstname %>"
+        value="<%= formData.acc_firstname %>"
       />
     </label>
     <label
@@ -31,7 +31,7 @@ rules validation as it is not working when parsing as a template -->
         id="lastname"
         required
         autocomplete
-        value="<%= body.acc_lastname %>"
+        value="<%= formData.acc_lastname %>"
       />
     </label>
     <label
@@ -42,7 +42,7 @@ rules validation as it is not working when parsing as a template -->
         id="email"
         required
         autocomplete
-        value="<%= body.acc_email %>"
+        value="<%= formData.acc_email %>"
       />
     </label>
     <label id="password-field" for="acc_password"

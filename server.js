@@ -65,9 +65,10 @@ app.use(static);
 app.get('/', handleErrors(buildHome));
 // Inventory Routes
 app.use('/inv', inventoryRouter);
-app.use('/server-error', serverErrorRouter);
 // Account Routes
 app.use('/account', accountRouter);
+// Server Error Routes
+app.use('/server-error', serverErrorRouter);
 
 /* ***********************
  * Route Not Found

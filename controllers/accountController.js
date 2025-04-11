@@ -46,18 +46,18 @@ const buildLogin = async (req, res, next) => {
 };
 
 const buildSignup = async (req, res, next) => {
-  const { title, nav, body } = await buildSignupGrid();
+  const { title, nav, formData } = await buildSignupGrid();
   res.render('./account/signup', {
     title,
     nav,
     errors: null,
-    body,
+    formData,
   });
 };
 
 const signupUser = async (req, res) => {
   const { acc_firstname, acc_lastname, acc_email, acc_password } = req.body;
-  const body = {
+  const formData = {
     acc_firstname,
     acc_lastname,
     acc_email,
@@ -77,7 +77,7 @@ const signupUser = async (req, res) => {
       title,
       nav,
       errors: null,
-      body,
+      formData,
     });
   }
 
@@ -107,7 +107,7 @@ const signupUser = async (req, res) => {
       title,
       nav,
       errors: null,
-      body,
+      formData,
     });
   }
 };

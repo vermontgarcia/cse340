@@ -108,11 +108,11 @@ const buildLoginGrid = async () => {
 const buildSignupGrid = async () => {
   const nav = await getNav();
   const title = `Signup`;
-  const body = { acc_firstname: '', acc_lastname: '', acc_email: '' };
+  const formData = { acc_firstname: '', acc_lastname: '', acc_email: '' };
   return {
     title,
     nav,
-    body,
+    formData,
   };
 };
 
