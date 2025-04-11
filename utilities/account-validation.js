@@ -60,7 +60,7 @@ const signupRules = () => {
  * ***************************** */
 const checkUserSignupData = async (req, res, next) => {
   const { acc_firstname, acc_lastname, acc_email } = req.body;
-  const fomrData = {
+  const formData = {
     acc_firstname,
     acc_lastname,
     acc_email,
@@ -69,12 +69,12 @@ const checkUserSignupData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     const { grid, title, nav } = await buildSignupGrid();
-    res.render('account/signup', {
+    res.render('./account/signup', {
       errors,
       title,
       nav,
       grid,
-      fomrData,
+      formData,
     });
     return;
   }
