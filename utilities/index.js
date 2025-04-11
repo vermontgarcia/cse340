@@ -153,6 +153,7 @@ const checkJWTToken = (req, res, next) => {
           res.clearCookie('jwt');
           return res.redirect('/account/login');
         }
+        req.user = accountData;
         res.locals.accountData = accountData;
         res.locals.loggedin = 1;
         next();

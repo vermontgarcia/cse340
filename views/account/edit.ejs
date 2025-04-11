@@ -3,20 +3,20 @@
 <h1><%= title %></h1>
 <% } else { res.redirect('/') } %>
 
-<!-- Display Errors if any -->
-<% if (errors) { %>
-<ul class="notice">
-  <% errors.array().forEach(error => { %>
-  <li><%= error.msg %></li>
-  <% }) %>
-</ul>
-<% } %>
 <!-- Display Messages if any -->
 <%- messages() %>
 
 <!-- Grid Data -->
 <section class="edit-data">
   <h3>Account Data</h3>
+  <!-- Display Errors if any -->
+  <% if (dataErrors) { %>
+  <ul class="notice error">
+    <% dataErrors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
   <form class="form" action="/account/edit/data" method="post">
     <fieldset>
       <label
@@ -27,7 +27,7 @@
           id="firstname"
           required
           autocomplete
-          value="<%= locals.accountData.acc_firstname %>"
+          value="<%= locals?.accountData?.acc_firstname %>"
         />
       </label>
       <label
@@ -38,7 +38,7 @@
           id="lastname"
           required
           autocomplete
-          value="<%= locals.accountData.acc_lastname %>"
+          value="<%= locals?.accountData?.acc_lastname %>"
         />
       </label>
       <label
@@ -49,7 +49,7 @@
           id="email"
           required
           autocomplete
-          value="<%= locals.accountData.acc_email %>"
+          value="<%= locals?.accountData?.acc_email %>"
         />
       </label>
     </fieldset>
@@ -61,6 +61,14 @@
 <section class="update-password">
   <h3>Update Password</h3>
   <form class="form" action="/account/edit/password" method="post">
+    <!-- Display Errors if any -->
+    <% if (passwordErrors) { %>
+    <ul class="notice error">
+      <% passwordErrors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
     <fieldset>
       <label id="password-field" for="acc_password"
         ><span>Password</span> <span class="required">*</span>

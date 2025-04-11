@@ -1,7 +1,12 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, getAccountByEmail } = require('../models/account-model');
+const {
+  createUser,
+  getAccountByEmail,
+  updatePassword,
+  updateData,
+} = require('../models/account-model');
 const {
   buildLoginGrid,
   buildSignupGrid,
@@ -24,8 +29,10 @@ const buildEditAccount = async (req, res, next) => {
   res.render('./account/edit', {
     title,
     nav,
-    errors: null,
+    dataErrors: null,
+    passwordErrors: null,
   });
+  return;
 };
 
 const buildLogin = async (req, res, next) => {
@@ -90,6 +97,77 @@ const signupUser = async (req, res) => {
       title,
       nav,
       errors: null,
+    });
+  }
+};
+
+const editAccountData = async (req, res) => {
+  const { acc_id } = res?.locals?.accountData;
+  const updateResult = await updateData(acc_id, req.body);
+
+  if (updateResult) {
+    delete updateResult.acc_password;
+    const accessToken = jwt.sign(
+      updateResult,
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: 3600 * 1000 }
+    );
+    if (process.env.NODE_ENV === 'development') {
+      res.cookie('jwt', accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+    } else {
+      res.cookie('jwt', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 3600 * 1000,
+      });
+    }
+    req.flash('notice', `Data Updated.`);
+    return res.redirect('/account/edit');
+  } else {
+    req.flash('notice', 'Sorry, the data update failed.');
+    const { title, nav } = await buildEditAccountGrid();
+    res.status(500).render('./account/edit', {
+      title,
+      nav,
+      dataErrors: null,
+      passwordErrors: null,
+    });
+  }
+};
+
+const editPassword = async (req, res) => {
+  const { acc_password } = req.body;
+  const { acc_id } = res.locals.accountData;
+
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hashSync(acc_password, 10);
+  } catch (error) {
+    req.flash('notice', 'Sorry, there was an error updating the password.');
+    const { title, nav } = await buildEditAccountGrid();
+    res.status(500).render('./account/edit', {
+      title,
+      nav,
+      dataErrors: null,
+      passwordErrors: null,
+    });
+    return;
+  }
+
+  const updateResult = await updatePassword(acc_id, hashedPassword);
+
+  if (updateResult) {
+    req.flash('notice', `Password updated.`);
+    const { title, nav } = await buildEditAccountGrid();
+    return res.redirect('/account/edit');
+  } else {
+    req.flash('notice', 'Sorry, the password update failed.');
+    const { title, nav } = await buildEditAccountGrid();
+    res.status(500).render('./account/edit', {
+      title,
+      nav,
+      dataErrors: null,
+      passwordErrors: null,
     });
   }
 };
@@ -160,4 +238,6 @@ module.exports = {
   logoutUser,
   buildAccount,
   buildEditAccount,
+  editAccountData,
+  editPassword,
 };
