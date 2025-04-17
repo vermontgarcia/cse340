@@ -5,6 +5,7 @@ const {
   getInventoryByClassificationId,
   getDetailsByInventoryId,
   getClassificationById,
+  getReviewsByInventoryId,
 } = require('../models/inventory-model');
 const {
   gridInventoryDetailsTemplate,
@@ -45,8 +46,9 @@ const buildClassificationGrid = async (clasId) => {
 
 const buildInventoryGrid = async (invId) => {
   const inventoryDetail = await getDetailsByInventoryId(invId);
+  const inventoryReviews = await getReviewsByInventoryId(invId);
   return {
-    grid: gridInventoryDetailsTemplate(inventoryDetail),
+    grid: gridInventoryDetailsTemplate(inventoryDetail, inventoryReviews),
     title: `${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
   };
 };

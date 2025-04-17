@@ -64,18 +64,26 @@ const gridTemplate = (rows) => `
   </ul>
 `;
 
+const reviewItemTemplate = ({ review_description, review_rate }) => `
+  <li>${review_description} (${review_rate}/5)</li>
+`;
+
 // Grid Inventory Details Templates
 
-const gridInventoryDetailsTemplate = ({
-  inv_year: year,
-  inv_make: make,
-  inv_model: model,
-  inv_image: image,
-  inv_price: price,
-  inv_description: description,
-  inv_color: color,
-  inv_miles: miles,
-}) => `
+const gridInventoryDetailsTemplate = (
+  {
+    inv_id,
+    inv_year: year,
+    inv_make: make,
+    inv_model: model,
+    inv_image: image,
+    inv_price: price,
+    inv_description: description,
+    inv_color: color,
+    inv_miles: miles,
+  },
+  reviews
+) => `
   <div>
     <div class="inventory-details-wrapper">
       <img
@@ -105,6 +113,41 @@ const gridInventoryDetailsTemplate = ({
             <p>${formattedNumber(miles)}</p>
           </li>
         </ul>
+        <div class="reviews-header">
+          <h3>Reviews</h3>
+          <button id="add-review-btn">Add Review</button>
+        </div>
+        <ul>
+          ${reviews.map(reviewItemTemplate).join('')}
+        </ul>
+        <dialog id="add-review-dialog">
+          <button id="close-modal">X</button>
+          <h2>${year} ${make} ${model} Review</h2>
+          <form id="review-form" method="post" action="/inv/review/${inv_id}" class="form">
+            <fieldset>
+              <div id="stars-reviews" class="stars-reviews">
+                <div>Overall Rating<span class="required">*</span></div>
+                <div class="stars-form">
+                  <input class="star-radio" type="radio" id="fivestar" name="review_rate" value="5" required><label for="fivestar"></label>
+                  <input class="star-radio" type="radio" id="fourstar" name="review_rate" value="4"><label for="fourstar"></label>
+                  <input class="star-radio" type="radio" id="threestar" name="review_rate" value="3"><label for="threestar"></label>
+                  <input class="star-radio" type="radio" id="twostar" name="review_rate" value="2"><label for="twostar"></label>
+                  <input class="star-radio" type="radio" id="onestar" name="review_rate" value="1"><label for="onestar"></label>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="comments">
+                <label>Tell Us your experience<span class="required">*</span>
+                  <textarea name="review_description" id="review" rows="2" required></textarea>
+                </label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <input id="submit-btn" type="submit" role="button" class="button" value="Add My Review">
+            </fieldset>
+          </form>
+        </dialog>
       </div>
     </div>
   </div>

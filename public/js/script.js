@@ -105,3 +105,13 @@ eyeIcon?.addEventListener('click', () => {
     eyeIcon.src = '/images/site/eye-close.png';
   }
 });
+
+const addReviewBtn = document.getElementById('add-review-btn');
+addReviewBtn?.addEventListener('click', () => {
+  console.log('clicked');
+  const modal = document.getElementById('add-review-dialog');
+  modal.showModal();
+  document.getElementById('close-modal').addEventListener('click', () => {
+    modal.close();
+  });
+});
