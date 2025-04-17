@@ -50,6 +50,34 @@ const getDetailsByInventoryId = async (invId) => {
 };
 
 /* ***************************
+ *  Get Inventory Details By ID
+ * ************************** */
+const getReviewsByInventoryId = async (invId) => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT * FROM review WHERE inv_id = $1`,
+      [invId]
+    );
+    return rows;
+  } catch (error) {
+    console.log('getReviewsByInventoryId error', error);
+  }
+};
+
+/* ***************************
+ *  Create Classification Data
+ * ************************** */
+const createReview = async (review_description, review_rate, inv_id) => {
+  try {
+    const sql =
+      'INSERT INTO review (review_description, review_rate, inv_id) VALUES ($1, $2, $3) RETURNING *';
+    return await pool.query(sql, [review_description, review_rate, inv_id]);
+  } catch (error) {
+    return error.message;
+  }
+};
+
+/* ***************************
  *  Create Classification Data
  * ************************** */
 const createClassification = async (clas_name) => {
@@ -147,4 +175,6 @@ module.exports = {
   createInventory,
   updateInventory,
   deleteInventoryById,
+  getReviewsByInventoryId,
+  createReview,
 };
