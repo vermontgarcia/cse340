@@ -1,5 +1,9 @@
 const { body, validationResult } = require('express-validator');
-const { buildAddClassGrid, buildAddEditInvGrid } = require('.');
+const {
+  buildAddClassGrid,
+  buildAddEditInvGrid,
+  buildInventoryGrid,
+} = require('.');
 
 const addClassificaitonRules = () => {
   return [
@@ -134,10 +138,47 @@ const checkEditInventoryData = async (req, res, next) => {
   next();
 };
 
+const addReviewRules = () => {
+  return [
+    body('review_description')
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage('Please provide a review.'),
+    body('review_rate')
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage('Rate cannot be empty.'),
+  ];
+};
+
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+const checkAddReviewData = async (req, res, next) => {
+  const invId = req.params.invId;
+  const formData = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { title, grid, nav } = await buildInventoryGrid(invId);
+    res.render('./inventory/inventory', {
+      errors,
+      title,
+      nav,
+      grid,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   addClassificaitonRules,
   checkAddClassificatonData,
   addInventoryRules,
   checkAddInventoryData,
   checkEditInventoryData,
+  addReviewRules,
+  checkAddReviewData,
 };

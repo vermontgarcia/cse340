@@ -32,9 +32,7 @@ const buildByClassificationId = async (req, res, next) => {
 
 const buildByInventoryId = async (req, res, next) => {
   const invId = req.params.invId;
-  const { grid, title } = await buildInventoryGrid(invId);
-  const nav = await getNav();
-
+  const { grid, title, nav } = await buildInventoryGrid(invId);
   res.render('./inventory/inventory', {
     title,
     grid,
@@ -182,10 +180,7 @@ const addInventoryReview = async (req, res) => {
   formData.inv_id = invId;
   const result = await createReview(formData);
   if (result) {
-    req.flash(
-      'notice',
-      `Vehicle ${formData.inv_make} ${formData.inv_model} Review Added`
-    );
+    req.flash('notice', `Review Added successfully!`);
     res.redirect(`/inv/detail/${invId}`);
   }
 };

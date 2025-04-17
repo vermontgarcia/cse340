@@ -47,9 +47,11 @@ const buildClassificationGrid = async (clasId) => {
 const buildInventoryGrid = async (invId) => {
   const inventoryDetail = await getDetailsByInventoryId(invId);
   const inventoryReviews = await getReviewsByInventoryId(invId);
+  const nav = await getNav();
   return {
     grid: gridInventoryDetailsTemplate(inventoryDetail, inventoryReviews),
     title: `${inventoryDetail.inv_year} ${inventoryDetail.inv_make} ${inventoryDetail.inv_model}`,
+    nav,
   };
 };
 

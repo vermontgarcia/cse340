@@ -21,6 +21,8 @@ const {
   addInventoryRules,
   checkAddInventoryData,
   checkEditInventoryData,
+  addReviewRules,
+  checkAddReviewData,
 } = require('../utilities/inventory-validation');
 
 const inventoryRouter = new Router();
@@ -32,7 +34,12 @@ inventoryRouter.get(
   '/getInventory/:clasId',
   handleErrors(getInventoryByClasId)
 );
-inventoryRouter.post('/review/:invId', handleErrors(addInventoryReview));
+inventoryRouter.post(
+  '/review/:invId',
+  addReviewRules(),
+  checkAddReviewData,
+  handleErrors(addInventoryReview)
+);
 
 // Protected Routes
 inventoryRouter.get('/', isEmployeeOrAdmin, buildManagement);
