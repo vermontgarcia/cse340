@@ -65,9 +65,9 @@ const getReviewsByInventoryId = async (invId) => {
 };
 
 /* ***************************
- *  Create Classification Data
+ *  Create Review Data
  * ************************** */
-const createReview = async (review_description, review_rate, inv_id) => {
+const createReview = async ({ review_description, review_rate, inv_id }) => {
   try {
     const sql =
       'INSERT INTO review (review_description, review_rate, inv_id) VALUES ($1, $2, $3) RETURNING *';

@@ -5,6 +5,7 @@ const {
   getDetailsByInventoryId,
   updateInventory,
   deleteInventoryById,
+  createReview,
 } = require('../models/inventory-model');
 const {
   getNav,
@@ -175,6 +176,20 @@ const editInventory = async (req, res) => {
   }
 };
 
+const addInventoryReview = async (req, res) => {
+  const { invId } = req.params;
+  const formData = req.body;
+  formData.inv_id = invId;
+  const result = await createReview(formData);
+  if (result) {
+    req.flash(
+      'notice',
+      `Vehicle ${formData.inv_make} ${formData.inv_model} Review Added`
+    );
+    res.redirect(`/inv/detail/${invId}`);
+  }
+};
+
 const getInventoryByClasId = async (req, res, next) => {
   const clas_id = parseInt(req.params.clasId);
   const invData = await getInventoryByClassificationId(clas_id);
@@ -214,4 +229,5 @@ module.exports = {
   editInventory,
   deleteInventory,
   getInventoryByClasId,
+  addInventoryReview,
 };

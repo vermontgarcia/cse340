@@ -12,6 +12,7 @@ const {
   buildEditInventory,
   editInventory,
   deleteInventory,
+  addInventoryReview,
 } = require('../controllers/inventoryController');
 const { handleErrors, isEmployeeOrAdmin } = require('../utilities');
 const {
@@ -31,6 +32,7 @@ inventoryRouter.get(
   '/getInventory/:clasId',
   handleErrors(getInventoryByClasId)
 );
+inventoryRouter.post('/review/:invId', handleErrors(addInventoryReview));
 
 // Protected Routes
 inventoryRouter.get('/', isEmployeeOrAdmin, buildManagement);
