@@ -627,12 +627,13 @@ section.management select {
 }
 
 /* Delete Confirmation */
+.delete-details,
 #delete-form {
   max-width: 550px;
   margin: 2rem auto;
 }
 
-#delete-form > p {
+.delete-details > p {
   padding: 0 2rem 2rem;
   font-size: 1.2rem;
   display: block;

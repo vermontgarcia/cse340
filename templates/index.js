@@ -82,7 +82,7 @@ const gridInventoryDetailsTemplate = (
     inv_color: color,
     inv_miles: miles,
   },
-  reviews
+  reviews = null
 ) => `
   <div>
     <div class="inventory-details-wrapper">
@@ -113,13 +113,17 @@ const gridInventoryDetailsTemplate = (
             <p>${formattedNumber(miles)}</p>
           </li>
         </ul>
-        <div class="reviews-header">
+        ${
+          reviews
+            ? `<div class="reviews-header">
           <h3>Reviews</h3>
           <button id="add-review-btn">Add Review</button>
         </div>
         <ul>
-          ${reviews.map(reviewItemTemplate).join('')}
-        </ul>
+          ${reviews?.map(reviewItemTemplate).join('')}
+        </ul>`
+            : ''
+        }
         <dialog id="add-review-dialog">
           <button id="close-modal">X</button>
           <h2>${year} ${make} ${model} Review</h2>
